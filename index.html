@@ -1,316 +1,268 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Keco Studio</title>
-<meta name="description" content="Keco Studio is the AI-native workspace for game designers to organize data, build mechanics, collaborate, and validate balance before development.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;800&display=swap">
-<link rel="stylesheet" href="styles.css?v=theme-time-3">
-
-<header class="site-header">
-  <div class="topbar">
-    <div class="wrap">
-      <a href="#">Tutorials</a>
-      <a href="#">Documentation</a>
-      <a href="#">Community</a>
-      <a href="#">Support</a>
-      <span class="sep" aria-hidden="true"></span>
-      <a href="#">English</a>
-      <a href="#" lang="zh">中文</a>
-    </div>
-  </div>
-  <div class="mainbar">
-    <div class="wrap">
-      <a class="logo" href="index.html" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a>
-      <nav class="nav" aria-label="Main">
-        <a href="index.html" aria-current="page">Product</a>
-        <a href="game-designers.html">Solutions</a>
-        <a href="#">Resources</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="#">Community</a>
-      </nav>
-      <div class="actions">
-        <button type="button" class="icon-btn search-btn" aria-label="Search"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="12.5" cy="12.5" r="7" stroke-width="1.5"></circle><path d="M17.5 17.5L23 23" stroke-width="1.5" stroke-linecap="round"></path></svg></button>
-        <button type="button" class="icon-btn theme-btn" aria-label="Use dark mode" title="Use dark mode" aria-pressed="false"><svg class="theme-icon-moon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M22 18.5A9 9 0 0 1 9.5 6 9 9 0 1 0 22 18.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg class="theme-icon-sun" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="5" stroke-width="1.5"></circle><path d="M14 3v3M14 22v3M3 14h3M22 14h3M6.2 6.2l2.1 2.1M19.7 19.7l2.1 2.1M21.8 6.2l-2.1 2.1M8.3 19.7l-2.1 2.1" stroke-width="1.5" stroke-linecap="round"></path></svg></button>
-        <a href="#" class="icon-btn account-btn" aria-label="Your account"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="10" r="5" stroke-width="1.5"></circle><path d="M5 24c1.5-4.5 5-7 9-7s7.5 2.5 9 7" stroke-width="1.5" stroke-linecap="round"></path></svg></a>
-        <a href="#" class="login">Log in</a>
-        <a href="#" class="btn btn-primary">Sign Up Free</a>
-        <button type="button" class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-panel"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 9h18M5 14h18M5 19h18" stroke-width="1.5" stroke-linecap="round"></path></svg></button>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Keco Studio - Make your game, one slice at a time</title>
+  <meta name="description" content="Download Keco Studio and turn game design into structured data, art, playable Godot slices, and measurable evaluations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;800&display=swap">
+  <link rel="stylesheet" href="styles.css?v=prd-1">
+  <script src="site-core.js?v=prd-1" defer></script>
+  <script src="site.js?v=prd-1" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <div class="wrap">
+        <span class="status-link" data-i18n="utility.help">Help - Coming soon</span>
+        <a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="utility.release">Release v0.1.7</a>
+        <span class="sep" aria-hidden="true"></span>
+        <button class="language-link" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button>
       </div>
     </div>
-  </div>
-  <div class="mobile-panel" id="mobile-panel" hidden>
-    <div class="wrap">
-      <a class="m-link" href="index.html" aria-current="page">Product</a>
-      <a class="m-link" href="game-designers.html">Solutions</a>
-      <a class="m-link" href="#">Resources</a>
-      <a class="m-link" href="pricing.html">Pricing</a>
-      <a class="m-link" href="#">Community</a>
-      <div class="btn-row">
-        <a href="#" class="btn btn-primary">Sign Up Free</a>
-        <a href="#" class="btn btn-line">Log in</a>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="wrap grid">
-      <h1 class="t-display">From game ideas to systems that work.</h1>
-      <div class="hero-side">
-        <p>Keco Studio is the AI-native workspace for game designers to organize data, build mechanics, collaborate, and validate balance before development.</p>
-        <div class="btn-row">
-          <a href="#" class="btn btn-primary">Download Keco Studio</a>
-          <a href="pricing.html" class="btn btn-line">See Pricing</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section aria-label="Highlights">
-    <div class="wrap grid mosaic">
-      <a href="#gdd" class="tile tile-lg">
-        <div class="ph pixmap" data-map="hero" style="left:-12px;top:-12px"></div>
-        <div class="ov-top"></div>
-        <div class="ov-bottom"></div>
-        <div class="tile-text">
-          <span class="t-xs bold">GDD to Game</span>
-          <span class="t-xs">Turn a game design document into a playable prototype in one click.</span>
-        </div>
-        <svg class="tile-arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg>
-      </a>
-      <div class="stack">
-        <a href="#agent" class="tile">
-          <div class="ph agent-cells"></div>
-          <div class="ov-top"></div>
-          <div class="ov-bottom"></div>
-          <div class="tile-text">
-            <span class="t-xs bold">Keco Agent</span>
-            <span>Edit tables, generate art and draft docs from one prompt.</span>
-          </div>
-          <svg class="tile-arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg>
+    <div class="mainbar">
+      <div class="wrap">
+        <a class="logo" href="#top" aria-label="Keco Studio home">
+          <img src="assets/keco-logo.png" alt="Keco" width="95" height="35">
         </a>
-        <a href="#mcp" class="tile">
-          <div class="ph nodes"><i class="n"></i><i class="w"></i><i class="n hot"></i><i class="w"></i><i class="n"></i></div>
-          <div class="ov-top"></div>
-          <div class="tile-text">
-            <span class="t-xs bold">MCP Integration</span>
-            <span>Connect any language model to your engine. No code.</span>
-          </div>
-          <svg class="tile-arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg>
-        </a>
-      </div>
-      <div class="linkpanel">
-        <h2 class="t-xs bold">Solutions</h2>
-        <ul class="link-list">
-          <li><a href="game-designers.html">» For Game Designers</a></li>
-          <li><a href="#">» For Narrative Teams</a></li>
-          <li><a href="#">» For Technical Designers</a></li>
-          <li><a href="#">» For Creators</a></li>
-        </ul>
-        <h2 class="t-xs bold">Resources</h2>
-        <ul class="link-list">
-          <li><a href="#">» Tutorials</a></li>
-          <li><a href="#">» Use Cases</a></li>
-          <li><a href="#">» Marketplace</a></li>
-          <li><a href="#">» Documentation</a></li>
-        </ul>
-        <a href="#" class="arrow-link accent">Browse Templates<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <h2 class="eyebrow">Why Keco</h2>
-      <p class="statement t-lg">Design your game’s systems. Prove they work. <span class="muted">Keco brings your mechanics, data and content into one place that AI can understand.</span></p>
-      <div class="pillars">
-        <article class="pillar">
-          <span class="fig t-label">FIG 0.1</span>
-          <div class="art"><svg viewBox="0 0 220 140" fill="none" aria-hidden="true"><rect class="s" x="10" y="14" width="76" height="112" stroke-width="2"></rect><path class="s" d="M24 38h48M24 54h48M24 70h36M24 86h44M24 102h28" stroke-width="2" stroke-linecap="round"></path><path class="a" d="M98 70h24M114 62l8 8-8 8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path><rect class="s" x="134" y="14" width="76" height="112" stroke-width="2"></rect><path class="af" d="M162 52v36l28-18z"></path></svg></div>
-          <h3 class="t-xs">From GDD to playable</h3>
-          <p class="muted">Turn a game design document into a playable prototype in one click.</p>
-        </article>
-        <article class="pillar">
-          <span class="fig t-label">FIG 0.2</span>
-          <div class="art"><svg viewBox="0 0 220 140" fill="none" aria-hidden="true"><rect class="s" x="20" y="10" width="180" height="84" stroke-width="2"></rect><path class="s" d="M20 38h180M20 66h180M80 10v84M140 10v84" stroke-width="2"></path><rect class="af" x="141" y="39" width="58" height="26"></rect><rect class="s" x="20" y="108" width="180" height="24" stroke-width="2"></rect><path class="s" d="M32 120h92" stroke-width="2" stroke-linecap="round"></path><path class="a" d="M180 114l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-          <h3 class="t-xs">An agent in your workspace</h3>
-          <p class="muted">Edit tables, generate art assets, draft design docs and convert files, all from one prompt.</p>
-        </article>
-        <article class="pillar">
-          <span class="fig t-label">FIG 0.3</span>
-          <div class="art"><svg viewBox="0 0 220 140" fill="none" aria-hidden="true"><rect class="s" x="10" y="48" width="44" height="44" stroke-width="2"></rect><path class="s" d="M54 70h34" stroke-width="2"></path><rect class="af" x="88" y="40" width="60" height="60"></rect><path class="s" d="M148 70h28" stroke-width="2"></path><rect class="s" x="176" y="22" width="34" height="34" stroke-width="2"></rect><rect class="s" x="176" y="84" width="34" height="34" stroke-width="2"></rect><path class="s" d="M162 70V39h14M162 70v31h14" stroke-width="2"></path></svg></div>
-          <h3 class="t-xs">Connected to any LLM</h3>
-          <p class="muted">Through MCP, language models read your design docs and write straight into your engine. No code.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap features">
-
-      <div id="gdd" class="grid feature">
-        <div class="feature-text">
-          <span class="eyebrow">01 · GDD to Game</span>
-          <h2 class="t-lg">From Design Doc to Playable Game</h2>
-          <p>Write your mechanics once. Keco reads your game design document, structures the rules, numbers and content inside it, and builds a playable version you can test right away.</p>
-          <a href="game-designers.html" class="arrow-link">Learn more<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></a>
-        </div>
-        <div class="feature-mock mock mock-gdd" aria-label="Example: a design document becomes a playable build" role="img">
-          <div class="card">
-            <div class="card-head"><span>combat-design.md</span><span>GDD</span></div>
-            <div class="doc-body">
-              <span class="h">Combat rules</span>
-              <span>Base damage = ATK × 1.2 − target DEF</span>
-              <span>Crit chance 8%, crit damage 1.5×</span>
-              <span>Enemy HP +6% per dungeon floor</span>
-              <span>One loot roll per room, rare drop 5%</span>
-              <span class="h gap">Enemies</span>
-              <span>Slime · Skeleton · Warden (boss, floor 5)</span>
-            </div>
-          </div>
-          <div class="go"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></div>
-          <div class="build">
-            <div class="card-head"><span>Playable build · Floor 3</span><b>Live</b></div>
-            <div class="build-body">
-              <div class="pixmap" data-map="build" style="--cell:30px"></div>
-              <div class="hp"><div><span>HP</span><span class="num">84 / 120</span></div><div class="bar"><i></i></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="agent" class="grid feature flip">
-        <div class="feature-mock mock mock-agent" aria-label="Example: the agent rebalances a weapons table" role="img">
-          <div class="card">
-            <div class="card-head"><span>weapons · 24 rows</span><span>Snapshot v19</span></div>
-            <div class="table-scroll">
-              <table class="data">
-                <thead><tr><th>Item</th><th>Tier</th><th>ATK</th><th>Speed</th><th>DPS</th></tr></thead>
-                <tbody>
-                  <tr><td>Iron Sword</td><td>1</td><td>18</td><td>3.0</td><td>54</td></tr>
-                  <tr><td>Oak Staff</td><td>2</td><td>30</td><td>2.8</td><td>84</td></tr>
-                  <tr><td>Ember Blade</td><td>3</td><td><span class="was">46</span><span class="now">41</span></td><td>3.2</td><td><span class="was">147</span><span class="now">131</span></td></tr>
-                  <tr><td>Frost Pike</td><td>3</td><td>52</td><td>2.6</td><td>135</td></tr>
-                  <tr><td>Storm Bow</td><td>3</td><td><span class="was">38</span><span class="now">33</span></td><td>4.1</td><td><span class="was">156</span><span class="now">135</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card chat">
-            <div class="chat-row"><span class="who">You</span><span>Rebalance tier-3 weapons so DPS stays under 140.</span></div>
-            <div class="chat-row"><span class="who agent">Keco agent</span><span>Updated 2 rows in weapons. Snapshot v19 saved.</span><span class="chip-btns"><span class="chip solid">Review</span><span class="chip">Undo</span></span></div>
-          </div>
-        </div>
-        <div class="feature-text">
-          <span class="eyebrow">02 · Keco Agent</span>
-          <h2 class="t-lg">An Agent That Knows Your Game</h2>
-          <p>Ask the built-in agent to rebalance a table, generate sprites and item art, draft a design doc, or turn a messy spreadsheet into clean, linked data. It works on your real project, not a blank chat.</p>
-          <a href="#" class="arrow-link">Learn more<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></a>
-        </div>
-      </div>
-
-      <div id="mcp" class="grid feature">
-        <div class="feature-text">
-          <span class="eyebrow">03 · MCP Integration</span>
-          <h2 class="t-lg">Zero-Code Engine Integration</h2>
-          <p>Connect your favorite language model to Keco over MCP. It can read your design docs, reason about your systems, and write changes directly into your game engine without a line of code.</p>
-          <a href="#" class="arrow-link">Learn more<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></a>
-        </div>
-        <div class="feature-mock mock mock-mcp" aria-label="Example: a language model writes to game engines through Keco" role="img">
-          <div class="flow">
-            <div class="node"><span class="bold">Any LLM</span><span class="muted">Your assistant of choice</span></div>
-            <div class="link"><i></i><svg width="10" height="12" viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"></path></svg></div>
-            <div class="node hot"><span class="bold">Keco Studio</span><span class="muted">MCP server</span></div>
-            <div class="link"><i></i><svg width="10" height="12" viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"></path></svg></div>
-            <div class="node"><span class="bold">Game engine</span><span class="muted">Godot · Unity</span></div>
-          </div>
-          <div class="card">
-            <div class="card-head"><span>MCP session</span></div>
-            <div class="log">
-              <div><b>read</b><span>design/combat-design.md</span></div>
-              <div><b>read</b><span>tables/weapons · 24 rows</span></div>
-              <div><b class="w">write</b><span>exports/weapons.json → Godot project</span></div>
-              <div><b class="w">write</b><span>exports/weapons.json → Unity project</span></div>
-              <div><b>done</b><span>2 engines updated, no code written</span></div>
-            </div>
-          </div>
+        <nav class="nav product-nav" aria-label="Product features">
+          <a href="#game-design-system" data-i18n="nav.gds">Game Design System</a>
+          <a href="#ai-agent" data-i18n="nav.agent">AI Agent</a>
+          <a href="#simulator" data-i18n="nav.simulator">Simulator</a>
+          <a href="#script" data-i18n="nav.script">Script</a>
+          <a href="#map" data-i18n="nav.map">Map</a>
+        </nav>
+        <div class="actions">
+          <button type="button" class="icon-btn theme-btn" aria-label="Use dark mode" title="Use dark mode" aria-pressed="false">
+            <svg class="theme-icon-moon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M22 18.5A9 9 0 0 1 9.5 6 9 9 0 1 0 22 18.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <svg class="theme-icon-sun" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="5" stroke-width="1.5"></circle><path d="M14 3v3M14 22v3M3 14h3M22 14h3M6.2 6.2l2.1 2.1M19.7 19.7l2.1 2.1M21.8 6.2l-2.1 2.1M8.3 19.7l-2.1 2.1" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          </button>
+          <button class="language-button" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button>
+          <a href="#downloads" class="btn btn-primary header-download" data-i18n="nav.download">Download client</a>
+          <button type="button" class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-panel">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 9h18M5 14h18M5 19h18" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          </button>
         </div>
       </div>
     </div>
-  </section>
-
-  <section id="faq" class="section faq">
-    <div class="wrap grid">
-      <div class="faq-intro">
-        <span class="eyebrow">FAQ</span>
-        <h2 class="t-md">Frequently Asked Questions</h2>
-        <p class="muted">Can’t find what you’re looking for?</p>
-        <a href="#" class="arrow-link">Get in touch with the team<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9h10.2L9.6 5.4 11 4l6 6-6 6-1.4-1.4 3.6-3.6H3z"></path></svg></a>
-      </div>
-      <div class="faq-list">
-        <details open><summary class="t-xs">What is Keco Studio?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>Keco Studio is an AI-native workspace for game designers. It brings your mechanics, numbers and content into one connected system, so you can design, test and balance your game before development starts.</p></details>
-        <details><summary class="t-xs">Who is Keco for?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>Game designers, narrative teams and technical designers, from solo creators to full studios. You don’t need to write code to use it.</p></details>
-        <details><summary class="t-xs">Can Keco really turn a GDD into a playable game?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>Yes. Import or write your game design document and Keco structures the rules, numbers and content inside it, then generates a playable prototype you can test and iterate on.</p></details>
-        <details><summary class="t-xs">What can the Keco agent do?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>It works directly on your project: editing and rebalancing tables, generating art assets, drafting design docs, and converting spreadsheets or scripts into clean, linked data.</p></details>
-        <details><summary class="t-xs">What is MCP and why does it matter?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>MCP (Model Context Protocol) lets language models connect to Keco. They can read your design docs and write changes straight into your game engine without any code.</p></details>
-        <details><summary class="t-xs">Which formats and engines are supported?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>Keco imports CSV and XLSX, and exports JSON, CSV and custom schemas. Exporters for Godot and Unity are available, with more engines on the way.</p></details>
-        <details><summary class="t-xs">Is Keco free to use?<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p>The Starter plan is free and includes the core tools. Pro and Studio add AI agent credits, collaboration and priority support. See <a href="pricing.html" style="text-decoration:underline">Pricing</a> for details.</p></details>
+    <div class="mobile-panel" id="mobile-panel" hidden>
+      <div class="wrap">
+        <a class="m-link" href="#game-design-system" data-i18n="nav.gds">Game Design System</a>
+        <a class="m-link" href="#ai-agent" data-i18n="nav.agent">AI Agent</a>
+        <a class="m-link" href="#simulator" data-i18n="nav.simulator">Simulator</a>
+        <a class="m-link" href="#script" data-i18n="nav.script">Script</a>
+        <a class="m-link" href="#map" data-i18n="nav.map">Map</a>
+        <a class="btn btn-primary" href="#downloads" data-i18n="nav.download">Download client</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="grid closing">
-        <div class="closing-main">
-          <span class="eyebrow">Get Started Today</span>
-          <h2 class="t-lg">Turn your next game idea into something playable.</h2>
-          <p class="muted">Bring your creativity. Keco handles the systems, data and balance, so you can spend more time making the game you imagined.</p>
+  <main id="top">
+    <section class="product-hero">
+      <div class="wrap grid">
+        <div class="product-hero-copy">
+          <span class="eyebrow" data-i18n="hero.eyebrow">Keco Studio</span>
+          <h1 class="t-display" data-i18n="hero.headline">Make your game, one slice at a time.</h1>
+        </div>
+        <div class="product-hero-side">
+          <p data-i18n="hero.body">Keco is a workbench for building games. You write the design; Keco turns it into data and art, helps you build a playable slice in Godot, then scores it against a fixed standard and tells you what to fix next.</p>
           <div class="btn-row">
-            <a href="#" class="btn btn-primary">Download Keco Studio</a>
-            <a href="pricing.html" class="btn btn-line">See Pricing</a>
+            <a class="btn btn-primary" href="#downloads" data-primary-download data-i18n="download.unknown">Choose a desktop version</a>
+            <a class="btn btn-line" href="#downloads" data-i18n="hero.choose">Choose another version</a>
+          </div>
+          <div class="hero-release">
+            <span class="t-label bold" data-i18n="hero.release">Latest stable release</span>
+            <span class="t-label muted" data-release-meta>Version v0.1.7 · 5.1 MB · Published 2026-09-29</span>
           </div>
         </div>
-        <form class="updates" data-updates novalidate>
-          <h2 class="t-xs bold">Register for Updates</h2>
-          <p class="t-label muted">Release notes, new templates and community events, once a month.</p>
-          <label class="field" for="updates-email">E-Mail *
-            <input id="updates-email" type="email" required placeholder="name@studio.com" autocomplete="email">
-          </label>
-          <button type="submit" class="btn btn-dark">Register</button>
-          <label class="check" for="updates-consent"><input id="updates-consent" type="checkbox"><span>I agree to receive product news from Keco Studio. Unsubscribe any time.</span></label>
-          <p class="form-status" role="status" hidden></p>
-        </form>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="ft-top">
-      <div>
-        <a href="index.html" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a>
-        <p class="ft-tag">The AI-native workspace for designing, testing and balancing game systems.</p>
+    <section class="product-proof" data-i18n-aria-label="hero.proofLabel" aria-label="Keco Studio workspace">
+      <div class="wrap">
+        <figure class="product-frame">
+          <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Keco Studio workspace showing a game design document" width="1893" height="1012">
+          <figcaption data-i18n="hero.proofCaption">Design documents, project assets, simulation, Script, and Map stay connected in one workspace.</figcaption>
+        </figure>
       </div>
-      <div class="ft-lang"><a href="#"><b>English</b></a><span aria-hidden="true">·</span><a href="#" lang="zh">中文</a></div>
-    </div>
-    <div class="ft-cols">
-      <div><h3>Product</h3><ul><li><a href="#">» Download</a></li><li><a href="index.html#gdd">» GDD to game</a></li><li><a href="index.html#agent">» Keco agent</a></li><li><a href="index.html#mcp">» MCP integration</a></li><li><a href="pricing.html">» Pricing</a></li><li><a href="#">» Release notes</a></li></ul></div>
-      <div><h3>Solutions</h3><ul><li><a href="game-designers.html">» Game Designers</a></li><li><a href="#">» Narrative Teams</a></li><li><a href="#">» Technical Designers</a></li><li><a href="#">» Creators</a></li></ul></div>
-      <div><h3>Resources</h3><ul><li><a href="#">» Tutorials</a></li><li><a href="#">» Use cases</a></li><li><a href="#">» Documentation</a></li><li><a href="#">» Templates</a></li><li><a href="#">» Plugins</a></li></ul></div>
-      <div><h3>Community</h3><ul><li><a href="#">» Made with Keco</a></li><li><a href="#">» Events</a></li><li><a href="#">» Keco Forums</a></li><li><a href="https://github.com/keco-studio">» GitHub</a></li><li><a href="#">» All channels</a></li></ul></div>
-      <div><h3>Company</h3><ul><li><a href="#">» Support</a></li><li><a href="#">» Contact us</a></li></ul></div>
-    </div>
-    <div class="ft-bottom">
-      <div><a href="https://discord.com/invite/KecoStudio">Discord</a><a href="https://www.youtube.com/@KecoStudio">YouTube</a><a href="https://x.com/KecoStudio">X</a><a href="https://www.instagram.com/kecostudio">Instagram</a><a href="https://www.tiktok.com/@kecostudio">TikTok</a><a href="https://www.reddit.com/r/KecoStudio">Reddit</a><a href="https://github.com/keco-studio">GitHub</a></div>
-      <div><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a><span>© 2026 Keco Studio</span></div>
-    </div>
-  </div>
-</footer>
+    </section>
 
-<script src="site.js?v=theme-time-3"></script>
+    <div class="feature-list">
+      <section class="section product-feature" id="game-design-system">
+        <div class="wrap grid">
+          <div class="feature-copy">
+            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+            <h2 class="t-lg" data-i18n="feature.gds.title">Game Design System</h2>
+            <p data-i18n="feature.gds.body">Version and reuse design rules, art direction, and source context across projects. Keep the decisions behind your game visible as the project changes.</p>
+          </div>
+          <div class="feature-carousel" data-carousel="game-design-system">
+            <div class="carousel-stage">
+              <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Project library and game design documents" width="1893" height="1012" data-carousel-image>
+              <div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div>
+            </div>
+            <div class="carousel-footer">
+              <p data-carousel-caption data-i18n="feature.gds.slide1">Project library and game design documents</p>
+              <div class="carousel-controls">
+                <button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                <div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div>
+                <button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              </div>
+              <span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-</body></html>
+      <section class="section product-feature" id="ai-agent">
+        <div class="wrap grid">
+          <div class="feature-copy">
+            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+            <h2 class="t-lg" data-i18n="feature.agent.title">AI Agent</h2>
+            <p data-i18n="feature.agent.body">The AI Agent understands the documents and data in your current project. Ask in natural language to find information, organize content, and make reviewed project changes.</p>
+          </div>
+          <div class="feature-carousel" data-carousel="ai-agent">
+            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="AI assistance available across the Keco workspace" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
+            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.agent.slide1">AI assistance available across the Keco workspace</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section product-feature" id="simulator">
+        <div class="wrap grid">
+          <div class="feature-copy">
+            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+            <h2 class="t-lg" data-i18n="feature.simulator.title">Simulator</h2>
+            <p data-i18n="feature.simulator.body">A battle and numbers sandbox for testing systems before implementation. Run scenarios, inspect results, and find balance problems while they are still inexpensive to fix.</p>
+          </div>
+          <div class="feature-carousel" data-carousel="simulator">
+            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Simulation access alongside project libraries" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
+            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.simulator.slide1">Simulation access alongside project libraries</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section product-feature" id="script">
+        <div class="wrap grid">
+          <div class="feature-copy">
+            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+            <h2 class="t-lg" data-i18n="feature.script.title">Script</h2>
+            <p data-i18n="feature.script.body">Turn design documents into editable dialogue scripts and branching flows. Keep narrative structure, character dialogue, and project context together.</p>
+          </div>
+          <div class="feature-carousel" data-carousel="script">
+            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Script workspace available from the product rail" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
+            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.script.slide1">Script workspace available from the product rail</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section product-feature" id="map">
+        <div class="wrap grid">
+          <div class="feature-copy">
+            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+            <h2 class="t-lg" data-i18n="feature.map.title">Map</h2>
+            <p data-i18n="feature.map.body">Plan, generate, and iterate on game maps with reusable references. Carry design intent and project assets into every map revision.</p>
+          </div>
+          <div class="feature-carousel" data-carousel="map">
+            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Map tools connected to the active project" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
+            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.map.slide1">Map tools connected to the active project</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section downloads" id="downloads">
+      <div class="wrap">
+        <span class="eyebrow" data-i18n="download.sectionEyebrow">Download Keco Studio</span>
+        <div class="section-heading grid">
+          <h2 class="t-lg" data-i18n="download.sectionTitle">Choose the build for your computer.</h2>
+          <p data-i18n="download.sectionBody">Download without registering first. Sign in or create an account when Keco Studio opens.</p>
+        </div>
+        <div class="download-grid">
+          <article class="download-option">
+            <div><span class="t-label muted">Windows · x64</span><h3 class="t-xs">Windows</h3></div>
+            <p class="t-label muted">v0.1.7 · .exe · 5.1 MB · 2026-09-29</p>
+            <a class="btn btn-primary" data-download="windows-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-Setup-0.1.7-windows-x64.exe" data-i18n="download.windows">Download for Windows</a>
+          </article>
+          <article class="download-option">
+            <div><span class="t-label muted">macOS · Apple Silicon</span><h3 class="t-xs">Mac</h3></div>
+            <p class="t-label muted">v0.1.7 · .dmg · 1.8 MB · 2026-09-29</p>
+            <a class="btn btn-primary" data-download="macos-arm64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-arm64.dmg" data-i18n="download.macosArm">Download for Mac - Apple Silicon</a>
+          </article>
+          <article class="download-option">
+            <div><span class="t-label muted">macOS · Intel</span><h3 class="t-xs">Mac</h3></div>
+            <p class="t-label muted">v0.1.7 · .dmg · 1.9 MB · 2026-09-29</p>
+            <a class="btn btn-primary" data-download="macos-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-x64.dmg" data-i18n="download.macosIntel">Download for Mac - Intel</a>
+          </article>
+          <article class="download-option is-disabled">
+            <div><span class="t-label muted">Linux · desktop</span><h3 class="t-xs">Linux</h3></div>
+            <p class="t-label muted" data-i18n="download.comingSoon">Coming soon</p>
+            <button class="btn btn-line" type="button" disabled data-i18n="download.linuxSoon">Linux coming soon</button>
+          </article>
+        </div>
+        <div class="download-status" data-download-status hidden aria-live="polite">
+          <div><span class="eyebrow" data-i18n="download.statusTitle">Your download is starting</span><p data-download-status-body>Open the installer when your browser finishes downloading it.</p></div>
+          <div class="btn-row"><a class="arrow-link" data-download-retry href="#downloads" data-i18n="download.retry">Download again</a><a class="arrow-link" href="#downloads" data-i18n="download.other">Choose another version</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section requirements" id="requirements">
+      <div class="wrap">
+        <span class="eyebrow" data-i18n="requirements.eyebrow">Version and requirements</span>
+        <div class="section-heading grid"><h2 class="t-lg" data-i18n="requirements.title">Check your computer before installing.</h2><p class="muted" data-i18n="requirements.note">Temporary requirements for v0.1.7. They will be updated as the desktop client evolves.</p></div>
+        <div class="requirements-grid">
+          <div class="requirements-table" role="table" aria-label="System requirements">
+            <div class="requirements-row requirements-head" role="row"><span role="columnheader" data-i18n="requirements.item">Requirement</span><span role="columnheader" data-i18n="requirements.minimum">Minimum</span><span role="columnheader" data-i18n="requirements.recommended">Recommended</span></div>
+            <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.os">Operating system</strong><span role="cell" data-i18n="requirements.osMin">Windows 10 64-bit or macOS 12</span><span role="cell" data-i18n="requirements.osRec">Windows 11 64-bit or current macOS</span></div>
+            <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.memory">Memory</strong><span role="cell" data-i18n="requirements.memoryMin">4 GB</span><span role="cell" data-i18n="requirements.memoryRec">8 GB</span></div>
+            <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.storage">Storage</strong><span role="cell" data-i18n="requirements.storageMin">100 MB for installation</span><span role="cell" data-i18n="requirements.storageRec">500 MB free space</span></div>
+            <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.account">Account</strong><span role="cell" data-i18n="requirements.accountMin">Required on first launch</span><span role="cell" data-i18n="requirements.accountRec">Existing Keco account</span></div>
+            <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.network">Network</strong><span role="cell" data-i18n="requirements.networkMin">Internet connection required</span><span role="cell" data-i18n="requirements.networkRec">Stable broadband connection</span></div>
+          </div>
+          <div class="install-guides">
+            <article class="install-guide"><h3 class="t-xs" data-i18n="install.windowsTitle">Install on Windows</h3><p data-i18n="install.windowsBody">Download and run the official setup file, then follow the installer. The current installer is unsigned, so Windows SmartScreen may show a warning. Confirm that the publisher file came from the official Keco Studio GitHub release before continuing.</p></article>
+            <article class="install-guide"><h3 class="t-xs" data-i18n="install.macTitle">Install on macOS</h3><p data-i18n="install.macBody">Choose the DMG matching your Mac chip, open it, and move Keco Studio to Applications. Current builds are ad-hoc signed but not notarized; use Finder Open or Privacy &amp; Security's Open Anyway control if macOS blocks the first launch.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="wrap grid">
+        <div class="faq-intro"><span class="eyebrow" data-i18n="faq.eyebrow">FAQ</span><h2 class="t-md" data-i18n="faq.title">Before and after you download</h2><a class="arrow-link" href="https://github.com/Keco-Studio" data-i18n="faq.support">Public support channels</a></div>
+        <div class="faq-list">
+          <details><summary class="t-xs"><span data-i18n="faq.q1">What is Keco Studio?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a1">Keco Studio is a connected workbench for game design. It turns design into structured data and art, helps build a playable Godot slice, and evaluates the result against a fixed standard.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q2">Who is Keco Studio for?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a2">It is built for game designers, narrative teams, technical designers, and creators who need to move from decisions and data to something playable.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q3">Which computer systems are supported?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a3">Version v0.1.7 provides Windows x64 and macOS builds for Apple Silicon and Intel. Linux and mobile versions are not available yet.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q4">What should I do if downloading or installation fails?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a4">Download the file again from this page and verify that you selected the correct platform. Review the Windows SmartScreen or macOS first-launch guidance above before contacting support.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q5">Do I need an account the first time I use it?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a5">You do not need an account to download the installer. Keco Studio requires you to sign in or create an account when you first launch it.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q6">Is project data stored locally or in the cloud?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a6">The desktop application connects to the online Keco Studio service. Do not treat the current desktop shell as a local-only storage product.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q7">How do I update or uninstall the client?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a7">For the current release, download the newest stable installer from this page when an update is available. Use the standard Windows Apps or macOS Applications process to remove Keco Studio.</p></details>
+          <details><summary class="t-xs"><span data-i18n="faq.q8">Where can I find release updates or support?</span><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path class="h" d="M6 14h16" stroke-width="1.5" stroke-linecap="round"></path><path class="v" d="M14 6v16" stroke-width="1.5" stroke-linecap="round"></path></svg></summary><p data-i18n="faq.a8">Release files and notes are published in the Keco Studio GitHub organization. You can also use the verified community channels in the footer.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-download">
+      <div class="wrap grid closing">
+        <div class="closing-main"><span class="eyebrow" data-i18n="closing.eyebrow">Start with one slice</span><h2 class="t-lg" data-i18n="closing.title">Download Keco Studio and bring your game design into one workspace.</h2><div class="btn-row"><a class="btn btn-primary" href="#downloads" data-i18n="nav.download">Download client</a><a class="btn btn-line" href="#requirements" data-i18n="closing.requirements">Review system requirements</a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="ft-top"><div><a href="#top" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a><p class="ft-tag" data-i18n="footer.tagline">Make your game, one slice at a time.</p></div><button class="language-link footer-language" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button></div>
+      <div class="ft-cols footer-columns">
+        <div><h3 data-i18n="footer.product">Product</h3><ul><li><a href="#downloads" data-i18n="footer.download">Download</a></li><li><a href="#requirements" data-i18n="footer.requirements">System requirements</a></li><li><a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="footer.release">Release notes</a></li></ul></div>
+        <div><h3 data-i18n="footer.help">Help</h3><ul><li><span data-i18n="footer.docs">Documentation - Coming soon</span></li><li><a href="#faq" data-i18n="footer.faq">FAQ</a></li><li><span data-i18n="footer.support">Contact support - Coming soon</span></li></ul></div>
+        <div><h3 data-i18n="footer.legal">Legal</h3><ul><li><span data-i18n="footer.terms">Terms - Coming soon</span></li><li><span data-i18n="footer.privacy">Privacy - Coming soon</span></li><li><span data-i18n="footer.cookies">Cookie settings - Coming soon</span></li><li><span data-i18n="footer.filing">Filing - Coming soon</span></li></ul></div>
+        <div><h3 data-i18n="footer.community">Community</h3><ul><li><a href="https://discord.com/invite/KecoStudio">Discord</a></li><li><a href="https://www.youtube.com/@KecoStudio">YouTube</a></li><li><a href="https://github.com/Keco-Studio">GitHub</a></li></ul></div>
+      </div>
+      <div class="ft-bottom"><div><a href="https://x.com/KecoStudio">X</a><a href="https://www.instagram.com/kecostudio">Instagram</a><a href="https://www.tiktok.com/@kecostudio">TikTok</a><a href="https://www.reddit.com/r/KecoStudio">Reddit</a></div><span data-i18n="footer.copyright">© 2026 Keco Studio</span></div>
+    </div>
+  </footer>
+</body>
+</html>
