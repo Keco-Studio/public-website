@@ -14,6 +14,11 @@ test("homepage exposes the approved product journey", () => {
   assert.match(html, /assets\/screenshots\/屏幕截图 2026-10-30 104821\.png/);
 });
 
+test("homepage omits the auxiliary topbar while keeping language in the main navigation", () => {
+  assert.doesNotMatch(html, /class=["']topbar["']/);
+  assert.match(html, /class=["']mainbar["'][\s\S]*data-language-toggle/);
+});
+
 test("homepage has direct supported fallbacks and no dead hash controls", () => {
   assert.match(html, /Keco-Studio-Setup-0\.1\.7-windows-x64\.exe/);
   assert.match(html, /Keco-Studio-0\.1\.7-macos-arm64\.dmg/);
