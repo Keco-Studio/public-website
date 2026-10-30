@@ -11,11 +11,24 @@ const source = await readFile(new URL("../site.js", import.meta.url), "utf8");
 class FakeNode {
   constructor(attributes = {}) {
     this.attributes = new Map(Object.entries(attributes));
+    this.children = [];
     this.dataset = {};
     this.hidden = false;
     this.href = attributes.href || "";
     this.listeners = new Map();
+    this.selectors = new Map();
+    this.style = {};
     this.textContent = "";
+    const classes = new Set();
+    this.classList = {
+      add(...names) { names.forEach((name) => classes.add(name)); },
+      contains(name) { return classes.has(name); },
+      remove(...names) { names.forEach((name) => classes.delete(name)); },
+      toggle(name, force) {
+        if (force === true || (force === undefined && !classes.has(name))) classes.add(name);
+        else classes.delete(name);
+      }
+    };
   }
 
   addEventListener(type, listener) {
@@ -24,8 +37,12 @@ class FakeNode {
   }
 
   click() {
-    for (const listener of this.listeners.get("click") || []) {
-      listener({ currentTarget: this, preventDefault() {}, target: this });
+    this.trigger("click");
+  }
+
+  trigger(type, extra = {}) {
+    for (const listener of this.listeners.get(type) || []) {
+      listener({ currentTarget: this, preventDefault() {}, target: this, ...extra });
     }
   }
 
@@ -42,9 +59,30 @@ class FakeNode {
     this.attributes.set(name, String(value));
     if (name === "href") this.href = String(value);
   }
+
+  appendChild(node) {
+    this.children.push(node);
+    return node;
+  }
+
+  contains(node) {
+    return node === this || this.children.includes(node);
+  }
+
+  querySelector(selector) {
+    return this.selectors.get(selector) || null;
+  }
+
+  replaceChildren(...nodes) {
+    this.children = nodes;
+  }
+
+  setSelector(selector, node) {
+    this.selectors.set(selector, node);
+  }
 }
 
-function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "Other", mobile = false } = {}) {
+function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "Other", mobile = false, carousel = false, reducedMotion = false } = {}) {
   const storageValues = new Map(storedLanguage ? [["keco-language", storedLanguage]] : []);
   const storage = {
     getItem(key) { return storageValues.get(key) ?? null; },
@@ -58,10 +96,29 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
   });
   const primaryDownload = new FakeNode({ href: "#downloads" });
   const meta = new FakeNode();
+  const carouselRoot = new FakeNode();
+  const carouselImage = new FakeNode();
+  const carouselCaption = new FakeNode();
+  const carouselStatus = new FakeNode();
+  const previousButton = new FakeNode();
+  const nextButton = new FakeNode();
+  const dots = new FakeNode();
+  const carouselError = new FakeNode();
+  const retryButton = new FakeNode();
+  carouselRoot.setSelector("[data-carousel-image]", carouselImage);
+  carouselRoot.setSelector("[data-carousel-caption]", carouselCaption);
+  carouselRoot.setSelector("[data-carousel-status]", carouselStatus);
+  carouselRoot.setSelector("[data-carousel-prev]", previousButton);
+  carouselRoot.setSelector("[data-carousel-next]", nextButton);
+  carouselRoot.setSelector("[data-carousel-dots]", dots);
+  carouselRoot.setSelector("[data-carousel-error]", carouselError);
+  carouselRoot.setSelector("[data-carousel-retry]", retryButton);
+  carouselRoot.getAttribute = (name) => name === "data-carousel" ? "game-design-system" : null;
   const documentElement = { dataset: {}, lang: "en" };
   const document = {
     documentElement,
     title: "",
+    createElement() { return new FakeNode(); },
     getElementById() { return null; },
     querySelector(selector) {
       if (selector === "[data-primary-download]") return primaryDownload;
@@ -72,14 +129,19 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       if (selector === "[data-i18n]") return [headline, languageButton];
       if (selector === "[data-i18n-aria-label]") return [languageButton];
       if (selector === "[data-language-toggle]") return [languageButton];
+      if (selector === "[data-carousel]") return carousel ? [carouselRoot] : [];
       return [];
     }
   };
   const timeouts = [];
+  const intervals = [];
+  let clearedIntervals = 0;
   const window = {
     KecoSiteCore: core,
+    clearInterval() { clearedIntervals += 1; },
     clearTimeout() {},
-    matchMedia() { return { matches: false }; },
+    matchMedia() { return { matches: reducedMotion }; },
+    setInterval(callback, delay) { intervals.push({ callback, delay }); return intervals.length; },
     setTimeout(callback, delay) { timeouts.push({ callback, delay }); return timeouts.length; }
   };
   const navigator = { platform, userAgent, userAgentData: { mobile } };
@@ -96,9 +158,21 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
 
   return {
     document,
-    nodes: { headline, languageButton, primaryDownload },
+    nodes: {
+      carousel: carouselRoot,
+      carouselImage,
+      dots,
+      headline,
+      languageButton,
+      nextButton,
+      previousButton,
+      primaryDownload
+    },
     storage,
-    timeouts
+    timeouts,
+    get clearedIntervals() { return clearedIntervals; },
+    get intervalCount() { return intervals.length; },
+    runInterval() { intervals.at(-1).callback(); }
   };
 }
 
@@ -134,4 +208,42 @@ test("Linux detection presents a non-downloadable coming-soon state", () => {
   assert.equal(runtime.nodes.primaryDownload.href, "");
   assert.equal(runtime.nodes.primaryDownload.getAttribute("aria-disabled"), "true");
   assert.equal(runtime.nodes.primaryDownload.textContent, "Linux coming soon");
+});
+
+test("carousel advances after three seconds and wraps", () => {
+  const runtime = bootHomepage({ carousel: true });
+
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
+  assert.equal(runtime.intervalCount, 1);
+  runtime.runInterval();
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
+  runtime.runInterval();
+  runtime.runInterval();
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
+});
+
+test("manual carousel navigation resets the interval", () => {
+  const runtime = bootHomepage({ carousel: true });
+
+  runtime.nodes.nextButton.click();
+
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
+  assert.equal(runtime.clearedIntervals, 1);
+  assert.equal(runtime.intervalCount, 2);
+});
+
+test("carousel pauses on hover and resumes after pointer exit", () => {
+  const runtime = bootHomepage({ carousel: true });
+
+  runtime.nodes.carousel.trigger("pointerenter");
+  assert.equal(runtime.clearedIntervals, 1);
+  runtime.nodes.carousel.trigger("pointerleave");
+  assert.equal(runtime.intervalCount, 2);
+});
+
+test("reduced motion disables carousel autoplay", () => {
+  const runtime = bootHomepage({ carousel: true, reducedMotion: true });
+
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
+  assert.equal(runtime.intervalCount, 0);
 });

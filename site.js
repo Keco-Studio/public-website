@@ -3,6 +3,7 @@
   var languageKey = 'keco-language';
   var currentLanguage = 'en';
   var currentDetection = null;
+  var carouselRefreshers = [];
 
   function readStorage(key) {
     try { return localStorage.getItem(key); } catch (error) { return null; }
@@ -103,6 +104,7 @@
       var key = node.getAttribute('data-i18n-aria-label');
       if (key) node.setAttribute('aria-label', translate(key));
     });
+    carouselRefreshers.forEach(function (refresh) { refresh(); });
     if (themeButton) updateThemeButton();
     if (currentDetection) renderPrimaryDownload(currentDetection);
   }
@@ -196,8 +198,108 @@
     }
   }
 
+  function initCarousels() {
+    if (!core) return;
+    var reducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('[data-carousel]').forEach(function (root) {
+      var feature = core.FEATURES[root.getAttribute('data-carousel')];
+      if (!feature || !feature.slides.length) return;
+      var image = root.querySelector('[data-carousel-image]');
+      var caption = root.querySelector('[data-carousel-caption]');
+      var status = root.querySelector('[data-carousel-status]');
+      var previous = root.querySelector('[data-carousel-prev]');
+      var next = root.querySelector('[data-carousel-next]');
+      var dots = root.querySelector('[data-carousel-dots]');
+      var error = root.querySelector('[data-carousel-error]');
+      var retry = root.querySelector('[data-carousel-retry]');
+      if (!image || !caption || !status || !previous || !next || !dots) return;
+
+      var activeIndex = 0;
+      var timer = null;
+      var dotButtons = [];
+
+      function render() {
+        var slide = feature.slides[activeIndex];
+        root.dataset.activeSlide = String(activeIndex);
+        image.src = slide.src;
+        image.alt = translate(slide.captionKey);
+        image.style.objectPosition = slide.objectPosition;
+        image.hidden = false;
+        caption.textContent = translate(slide.captionKey);
+        status.textContent = translate('carousel.status', { current: activeIndex + 1, total: feature.slides.length });
+        if (error) error.hidden = true;
+        dotButtons.forEach(function (button, index) {
+          button.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+          button.setAttribute('aria-label', translate('carousel.goto', { number: index + 1 }));
+        });
+      }
+
+      function stop() {
+        if (timer !== null) {
+          window.clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function start() {
+        if (!core.shouldAutoplay(reducedMotion) || timer !== null) return;
+        timer = window.setInterval(function () {
+          activeIndex = core.nextSlide(activeIndex, feature.slides.length, 1);
+          render();
+        }, 3000);
+      }
+
+      function changeTo(index) {
+        activeIndex = index;
+        render();
+        stop();
+        start();
+      }
+
+      dots.replaceChildren();
+      feature.slides.forEach(function (_, index) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.addEventListener('click', function () { changeTo(index); });
+        dots.appendChild(dot);
+        dotButtons.push(dot);
+      });
+
+      previous.addEventListener('click', function () {
+        changeTo(core.nextSlide(activeIndex, feature.slides.length, -1));
+      });
+      next.addEventListener('click', function () {
+        changeTo(core.nextSlide(activeIndex, feature.slides.length, 1));
+      });
+      root.addEventListener('pointerenter', stop);
+      root.addEventListener('pointerleave', start);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', function (event) {
+        if (!root.contains(event.relatedTarget)) start();
+      });
+      image.addEventListener('error', function () {
+        image.hidden = true;
+        if (error) error.hidden = false;
+      });
+      if (retry) {
+        retry.addEventListener('click', function () {
+          var separator = feature.slides[activeIndex].src.indexOf('?') === -1 ? '?' : '&';
+          image.hidden = false;
+          if (error) error.hidden = true;
+          image.src = feature.slides[activeIndex].src + separator + 'retry=' + Date.now();
+        });
+      }
+
+      carouselRefreshers.push(render);
+      render();
+      start();
+    });
+  }
+
   initLanguage();
   initDownloads();
+  initCarousels();
 
   // Pixel dungeon maps used as tile imagery
   var MAPS = {
