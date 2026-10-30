@@ -1,4 +1,21 @@
 (function () {
+  var core = window.KecoSiteCore || null;
+  var languageKey = 'keco-language';
+  var currentLanguage = 'en';
+  var currentDetection = null;
+
+  function readStorage(key) {
+    try { return localStorage.getItem(key); } catch (error) { return null; }
+  }
+
+  function writeStorage(key, value) {
+    try { localStorage.setItem(key, value); } catch (error) {}
+  }
+
+  function translate(key, replacements) {
+    return core ? core.t(currentLanguage, key, replacements) : key;
+  }
+
   // Theme follows the local day/night schedule until the visitor makes an explicit choice.
   var themeButton = document.querySelector('.theme-btn');
   if (themeButton) {
@@ -20,7 +37,11 @@
 
     function updateThemeButton() {
       var isDark = themeRoot.dataset.theme === 'dark';
-      var label = themeRoot.dataset.themeMode === 'manual' ? 'Follow time-based theme' : isDark ? 'Use light mode' : 'Use dark mode';
+      var label = themeRoot.dataset.themeMode === 'manual'
+        ? (core ? translate('theme.auto') : 'Follow time-based theme')
+        : isDark
+          ? (core ? translate('theme.light') : 'Use light mode')
+          : (core ? translate('theme.dark') : 'Use dark mode');
       themeButton.setAttribute('aria-label', label);
       themeButton.setAttribute('title', label);
       themeButton.setAttribute('aria-pressed', themeRoot.dataset.themeMode === 'manual' ? 'true' : 'false');
@@ -66,6 +87,118 @@
     });
   }
 
+  function applyLanguage(language) {
+    if (!core) return;
+    currentLanguage = core.normalizeLanguage(language);
+    document.documentElement.lang = currentLanguage;
+    document.title = translate('meta.title');
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute('content', translate('meta.description'));
+
+    document.querySelectorAll('[data-i18n]').forEach(function (node) {
+      var key = node.getAttribute('data-i18n');
+      if (key) node.textContent = translate(key);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(function (node) {
+      var key = node.getAttribute('data-i18n-aria-label');
+      if (key) node.setAttribute('aria-label', translate(key));
+    });
+    if (themeButton) updateThemeButton();
+    if (currentDetection) renderPrimaryDownload(currentDetection);
+  }
+
+  function initLanguage() {
+    if (!core) return;
+    applyLanguage(readStorage(languageKey));
+    document.querySelectorAll('[data-language-toggle]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var nextLanguage = currentLanguage === 'en' ? 'zh-CN' : 'en';
+        writeStorage(languageKey, nextLanguage);
+        applyLanguage(nextLanguage);
+      });
+    });
+  }
+
+  function formatFileSize(bytes) {
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function renderPrimaryDownload(detection) {
+    var primary = document.querySelector('[data-primary-download]');
+    if (!core || !primary) return;
+    currentDetection = detection;
+    var view = core.getDownloadView(currentLanguage, detection);
+    primary.textContent = view.label;
+    if (view.url) {
+      primary.setAttribute('href', view.url);
+      primary.removeAttribute('aria-disabled');
+      primary.dataset.downloadKey = view.download.key;
+    } else {
+      primary.removeAttribute('href');
+      primary.setAttribute('aria-disabled', 'true');
+      delete primary.dataset.downloadKey;
+    }
+    var meta = document.querySelector('[data-release-meta]');
+    if (meta && view.download) {
+      meta.textContent = translate('download.versionMeta', {
+        version: core.RELEASE.version,
+        size: formatFileSize(view.download.size),
+        date: core.RELEASE.publishedAt
+      });
+    }
+  }
+
+  function showDownloadStatus(download) {
+    var status = document.querySelector('[data-download-status]');
+    if (!status || !download) return;
+    status.hidden = false;
+    var body = status.querySelector ? status.querySelector('[data-download-status-body]') : null;
+    var retry = status.querySelector ? status.querySelector('[data-download-retry]') : null;
+    if (body) body.textContent = translate('download.statusBody', { filename: download.filename });
+    if (retry) retry.setAttribute('href', download.url);
+    window.setTimeout(function () {
+      if (status.classList) status.classList.add('is-retry-ready');
+    }, 3000);
+  }
+
+  function bindDownloadLinks() {
+    if (!core) return;
+    document.querySelectorAll('[data-download]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        showDownloadStatus(core.getDownload(link.getAttribute('data-download')));
+      });
+    });
+    var primary = document.querySelector('[data-primary-download]');
+    if (primary) {
+      primary.addEventListener('click', function () {
+        if (primary.dataset.downloadKey) showDownloadStatus(core.getDownload(primary.dataset.downloadKey));
+      });
+    }
+  }
+
+  function initDownloads() {
+    var primary = document.querySelector('[data-primary-download]');
+    if (!core || !primary || typeof navigator === 'undefined') return;
+    var agentData = navigator.userAgentData || {};
+    var baseInfo = {
+      userAgent: navigator.userAgent || '',
+      platform: navigator.platform || '',
+      mobile: agentData.mobile === true
+    };
+    renderPrimaryDownload(core.detectPlatform(baseInfo));
+    bindDownloadLinks();
+
+    if (typeof agentData.getHighEntropyValues === 'function') {
+      agentData.getHighEntropyValues(['architecture']).then(function (values) {
+        baseInfo.architecture = values.architecture || '';
+        renderPrimaryDownload(core.detectPlatform(baseInfo));
+      }).catch(function () {});
+    }
+  }
+
+  initLanguage();
+  initDownloads();
+
   // Pixel dungeon maps used as tile imagery
   var MAPS = {
     hero: ['###############', '#....#....i...#', '#.##.#.####.#.#', '#.#..........##', '#.#.###.##.#..#', '#...#e..#..#.##', '###.#.###.##..#', '#...#...P....e#', '#.#####.#####.#', '#.....#.....#.#', '#.###.#.###.#.#', '#i..#...#...i.#', '###############'],
@@ -107,7 +240,7 @@
       var open = panel.hidden;
       panel.hidden = !open;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      btn.setAttribute('aria-label', core ? translate(open ? 'menu.close' : 'menu.open') : open ? 'Close menu' : 'Open menu');
     });
     panel.addEventListener('click', function (e) {
       if (e.target.closest('a')) { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
