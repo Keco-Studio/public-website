@@ -447,3 +447,193 @@ ul { list-style: none; margin: 0; padding: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Download-first product homepage */
+.status-link { color: var(--ink-2); }
+.language-link,
+.language-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.language-link:hover,
+.language-button:hover { color: var(--accent); }
+.language-button {
+  min-width: 48px;
+  min-height: 48px;
+  padding-inline: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.product-nav { gap: 24px; }
+.product-nav a { font-size: 18px; line-height: 26px; white-space: nowrap; }
+
+.product-hero { padding-block: 64px 40px; }
+.product-hero .grid { align-items: end; }
+.product-hero-copy { grid-column: span 7; }
+.product-hero-copy h1 { margin-top: 16px; max-width: 820px; }
+.product-hero-side { grid-column: span 5; display: flex; flex-direction: column; gap: 28px; }
+.hero-release { display: flex; flex-direction: column; gap: 4px; }
+
+.product-proof { padding-top: 16px; }
+.product-frame { margin: 0; border: 1px solid var(--line); background: var(--panel); }
+.product-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1893 / 1012;
+  object-fit: cover;
+  object-position: center;
+}
+.product-frame figcaption { padding: 16px 20px; color: var(--ink-2); font-size: 16px; line-height: 22px; }
+
+.feature-list { display: flex; flex-direction: column; }
+.product-feature .grid { align-items: start; }
+.feature-copy { grid-column: span 5; padding: 8px 32px 0 0; }
+.feature-copy h2 { margin-top: 16px; }
+.feature-copy p { margin-top: 24px; max-width: 560px; }
+.feature-carousel { grid-column: span 7; border: 1px solid var(--line); background: var(--panel); }
+.carousel-stage { position: relative; aspect-ratio: 1893 / 1012; overflow: hidden; background: var(--panel); }
+.carousel-stage > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+}
+.carousel-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  text-align: center;
+  background: var(--panel);
+  color: var(--ink-2);
+}
+.carousel-error[hidden] { display: none; }
+.carousel-error button { padding: 8px 16px; border: 1px solid var(--ink); background: var(--bg); color: var(--ink); font: 600 16px/22px var(--sans); cursor: pointer; }
+.carousel-footer {
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 8px 24px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+}
+.carousel-footer p { align-self: end; }
+.carousel-footer > .t-label { align-self: start; }
+.carousel-controls { grid-column: 2; grid-row: 1 / span 2; display: flex; align-items: center; gap: 8px; }
+.carousel-arrow { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--bg); }
+.carousel-arrow:hover { border-color: var(--accent); color: var(--accent); }
+.carousel-dots { display: flex; align-items: center; gap: 8px; min-width: 64px; justify-content: center; }
+.carousel-dot { width: 8px; height: 8px; padding: 0; border: 1px solid var(--ink-2); border-radius: 50%; background: transparent; cursor: pointer; }
+.carousel-dot[aria-current="true"] { border-color: var(--accent); background: var(--accent); }
+
+.section-heading { align-items: end; margin-top: 16px; }
+.section-heading h2 { grid-column: span 7; }
+.section-heading > p { grid-column: span 5; }
+.download-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); margin-top: 56px; }
+.download-option {
+  min-width: 0;
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  border-top: 4px solid var(--accent);
+  background: var(--panel);
+}
+.download-option h3 { margin-top: 4px; font-weight: 600; }
+.download-option .btn { width: 100%; margin-top: auto; padding-inline: 20px; white-space: normal; }
+.download-option.is-disabled { border-top-color: var(--line); }
+.download-option button:disabled { border-color: var(--line); color: var(--ink-2); cursor: not-allowed; }
+.download-status {
+  margin-top: 24px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+  background: var(--panel);
+  border-left: 4px solid var(--accent);
+}
+.download-status[hidden] { display: none; }
+.download-status p { margin-top: 8px; }
+.download-status .btn-row { opacity: .7; }
+.download-status.is-retry-ready .btn-row { opacity: 1; }
+
+.requirements-grid { display: grid; grid-template-columns: 7fr 5fr; gap: var(--gutter); margin-top: 56px; align-items: start; }
+.requirements-table { border-top: 1px solid var(--ink); }
+.requirements-row { display: grid; grid-template-columns: 1fr 1.25fr 1.25fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.requirements-row strong { font-weight: 600; }
+.requirements-head { color: var(--ink-2); font-size: 16px; line-height: 22px; }
+.install-guides { display: flex; flex-direction: column; gap: var(--gutter); }
+.install-guide { padding: 28px; background: var(--panel); border-top: 4px solid var(--line); }
+.install-guide h3 { font-weight: 600; }
+.install-guide p { margin-top: 16px; color: var(--ink-2); }
+
+.final-download .closing { padding-block: 72px; }
+.final-download .closing-main { grid-column: span 9; }
+.final-download .closing-main .btn-row { margin-top: 40px; }
+.footer-language { color: #ffffff; }
+.footer-columns { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.footer-columns span { color: rgba(255,255,255,.68); }
+
+@media (max-width: 1220px) {
+  .product-nav { gap: 16px; }
+  .product-nav a { font-size: 16px; line-height: 22px; }
+  .mainbar .wrap { gap: 32px; }
+  .header-download { padding-inline: 20px; font-size: 18px; }
+}
+
+@media (max-width: 1100px) {
+  .product-hero { padding-block: 48px 32px; }
+  .product-hero-copy,
+  .product-hero-side,
+  .feature-copy,
+  .feature-carousel,
+  .section-heading h2,
+  .section-heading > p { grid-column: 1 / -1; }
+  .product-hero-side { margin-top: 24px; }
+  .feature-copy { padding-right: 0; }
+  .feature-carousel { margin-top: 24px; }
+  .download-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .requirements-grid { grid-template-columns: 1fr; }
+  .footer-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .language-button { display: none; }
+}
+
+@media (max-width: 640px) {
+  .product-hero { padding-block: 36px 24px; }
+  .product-hero-side { gap: 22px; }
+  .product-hero .btn-row,
+  .final-download .btn-row { flex-direction: column; }
+  .product-hero .btn,
+  .final-download .btn { width: 100%; }
+  .product-proof { padding-top: 8px; }
+  .product-frame figcaption { padding: 12px 16px; font-size: 14px; line-height: 20px; }
+  .carousel-footer { min-height: 132px; grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+  .carousel-controls { grid-column: 1; grid-row: 3; justify-content: space-between; }
+  .download-grid { grid-template-columns: 1fr; margin-top: 40px; }
+  .download-option { min-height: 0; padding: 24px 20px; }
+  .download-option .btn { margin-top: 12px; }
+  .download-status { align-items: flex-start; flex-direction: column; padding: 24px 20px; }
+  .requirements-grid { margin-top: 40px; }
+  .requirements-row { grid-template-columns: 1fr; gap: 6px; }
+  .requirements-head { display: none; }
+  .requirements-row strong { color: var(--accent); }
+  .install-guide { padding: 24px 20px; }
+  .final-download .closing { padding-block: 40px; }
+  .final-download .closing-main { grid-column: 1 / -1; }
+  .footer-columns { grid-template-columns: 1fr; }
+}
