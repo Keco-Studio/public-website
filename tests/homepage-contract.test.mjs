@@ -21,8 +21,28 @@ test("homepage has direct supported fallbacks and no dead hash controls", () => 
   assert.doesNotMatch(html, /href=["']#["']/);
 });
 
-test("homepage includes five carousel roots and eight collapsed FAQ items", () => {
-  assert.equal((html.match(/data-carousel=/g) || []).length, 5);
+test("homepage uses one accessible feature showcase instead of five repeated sections", () => {
+  assert.equal((html.match(/data-feature-showcase(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-feature-tab=/g) || []).length, 5);
+  assert.equal((html.match(/role=["']tab["']/g) || []).length, 5);
+  assert.equal((html.match(/data-feature-panel(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-feature-carousel(?:\s|>)/g) || []).length, 1);
+  assert.doesNotMatch(html, /class=["'][^"']*\bproduct-feature\b/);
+});
+
+test("homepage keeps all feature descriptions available without JavaScript", () => {
+  assert.equal((html.match(/data-feature-fallback=/g) || []).length, 5);
+  assert.match(html, /<noscript>[\s\S]*data-feature-fallback="map"[\s\S]*<\/noscript>/);
+});
+
+test("homepage presents a detected-device download before compact alternatives", () => {
+  assert.equal((html.match(/data-download-recommendation(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-recommended-download(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-download-option=/g) || []).length, 4);
+  assert.equal((html.match(/data-recommended-badge(?:\s|>)/g) || []).length, 3);
+});
+
+test("homepage keeps eight FAQ items collapsed by default", () => {
   assert.equal((html.match(/<details(?:\s|>)/g) || []).length, 8);
   assert.doesNotMatch(html, /<details\s+open/);
 });

@@ -24,10 +24,10 @@
     </div>
     <div class="mainbar">
       <div class="wrap">
-        <a class="logo" href="#top" aria-label="Keco Studio home">
+        <a class="logo" href="#top" data-i18n-aria-label="nav.home" aria-label="Keco Studio home">
           <img src="assets/keco-logo.png" alt="Keco" width="95" height="35">
         </a>
-        <nav class="nav product-nav" aria-label="Product features">
+        <nav class="nav product-nav" data-i18n-aria-label="nav.features" aria-label="Product features">
           <a href="#game-design-system" data-i18n="nav.gds">Game Design System</a>
           <a href="#ai-agent" data-i18n="nav.agent">AI Agent</a>
           <a href="#simulator" data-i18n="nav.simulator">Simulator</a>
@@ -41,7 +41,7 @@
           </button>
           <button class="language-button" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button>
           <a href="#downloads" class="btn btn-primary header-download" data-i18n="nav.download">Download client</a>
-          <button type="button" class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-panel">
+          <button type="button" class="icon-btn menu-btn" data-i18n-aria-label="menu.open" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-panel">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 9h18M5 14h18M5 19h18" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </button>
         </div>
@@ -61,12 +61,10 @@
 
   <main id="top">
     <section class="product-hero">
-      <div class="wrap grid">
-        <div class="product-hero-copy">
+      <div class="wrap">
+        <div class="product-hero-inner">
           <span class="eyebrow" data-i18n="hero.eyebrow">Keco Studio</span>
           <h1 class="t-display" data-i18n="hero.headline">Make your game, one slice at a time.</h1>
-        </div>
-        <div class="product-hero-side">
           <p data-i18n="hero.body">Keco is a workbench for building games. You write the design; Keco turns it into data and art, helps you build a playable slice in Godot, then scores it against a fixed standard and tells you what to fix next.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="#downloads" data-primary-download data-i18n="download.unknown">Choose a desktop version</a>
@@ -83,94 +81,59 @@
     <section class="product-proof" data-i18n-aria-label="hero.proofLabel" aria-label="Keco Studio workspace">
       <div class="wrap">
         <figure class="product-frame">
-          <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Keco Studio workspace showing a game design document" width="1893" height="1012">
+          <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" data-i18n-alt="hero.proofAlt" alt="Keco Studio workspace showing a game design document" width="1893" height="1012">
           <figcaption data-i18n="hero.proofCaption">Design documents, project assets, simulation, Script, and Map stay connected in one workspace.</figcaption>
         </figure>
       </div>
     </section>
 
-    <div class="feature-list">
-      <section class="section product-feature" id="game-design-system">
-        <div class="wrap grid">
-          <div class="feature-copy">
-            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
-            <h2 class="t-lg" data-i18n="feature.gds.title">Game Design System</h2>
-            <p data-i18n="feature.gds.body">Version and reuse design rules, art direction, and source context across projects. Keep the decisions behind your game visible as the project changes.</p>
+    <section class="section feature-showcase">
+      <div class="wrap">
+        <div class="feature-showcase-heading">
+          <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
+          <h2 class="t-lg" data-i18n="feature.sectionTitle">One connected workspace, from design to playable slice.</h2>
+        </div>
+        <noscript>
+          <div class="feature-fallback-grid">
+            <article class="feature-fallback" data-feature-fallback="game-design-system"><h3 class="t-xs">Game Design System</h3><p>Version and reuse design rules, art direction, and source context across projects. Keep the decisions behind your game visible as the project changes.</p></article>
+            <article class="feature-fallback" data-feature-fallback="ai-agent"><h3 class="t-xs">AI Agent</h3><p>The AI Agent understands the documents and data in your current project. Ask in natural language to find information, organize content, and make reviewed project changes.</p></article>
+            <article class="feature-fallback" data-feature-fallback="simulator"><h3 class="t-xs">Simulator</h3><p>Run battle and numbers scenarios, inspect results, and find balance problems before they become expensive to fix.</p></article>
+            <article class="feature-fallback" data-feature-fallback="script"><h3 class="t-xs">Script</h3><p>Turn design documents into editable dialogue scripts and branching flows while keeping project context connected.</p></article>
+            <article class="feature-fallback" data-feature-fallback="map"><h3 class="t-xs">Map</h3><p>Plan, generate, and iterate on game maps with reusable references, project assets, and visible design intent.</p></article>
           </div>
-          <div class="feature-carousel" data-carousel="game-design-system">
-            <div class="carousel-stage">
-              <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Project library and game design documents" width="1893" height="1012" data-carousel-image>
-              <div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div>
-            </div>
-            <div class="carousel-footer">
-              <p data-carousel-caption data-i18n="feature.gds.slide1">Project library and game design documents</p>
-              <div class="carousel-controls">
-                <button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-                <div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div>
-                <button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        </noscript>
+        <div class="feature-showcase-layout" data-feature-showcase>
+          <div class="feature-tabs" role="tablist" data-i18n-aria-label="feature.selectorLabel" aria-label="Keco Studio features">
+            <button class="feature-tab" id="game-design-system" type="button" role="tab" aria-controls="feature-panel" aria-selected="true" tabindex="0" data-feature-tab="game-design-system"><span class="feature-tab-index">01</span><span data-i18n="feature.gds.title">Game Design System</span></button>
+            <button class="feature-tab" id="ai-agent" type="button" role="tab" aria-controls="feature-panel" aria-selected="false" tabindex="-1" data-feature-tab="ai-agent"><span class="feature-tab-index">02</span><span data-i18n="feature.agent.title">AI Agent</span></button>
+            <button class="feature-tab" id="simulator" type="button" role="tab" aria-controls="feature-panel" aria-selected="false" tabindex="-1" data-feature-tab="simulator"><span class="feature-tab-index">03</span><span data-i18n="feature.simulator.title">Simulator</span></button>
+            <button class="feature-tab" id="script" type="button" role="tab" aria-controls="feature-panel" aria-selected="false" tabindex="-1" data-feature-tab="script"><span class="feature-tab-index">04</span><span data-i18n="feature.script.title">Script</span></button>
+            <button class="feature-tab" id="map" type="button" role="tab" aria-controls="feature-panel" aria-selected="false" tabindex="-1" data-feature-tab="map"><span class="feature-tab-index">05</span><span data-i18n="feature.map.title">Map</span></button>
+          </div>
+          <article class="feature-panel" id="feature-panel" role="tabpanel" aria-labelledby="game-design-system" data-feature-panel>
+            <header class="feature-panel-copy">
+              <h3 class="t-xs" data-feature-title>Game Design System</h3>
+              <p data-feature-body>Version and reuse design rules, art direction, and source context across projects. Keep the decisions behind your game visible as the project changes.</p>
+            </header>
+            <div class="feature-carousel" data-feature-carousel>
+              <div class="carousel-stage">
+                <img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Project library and game design documents" width="1893" height="1012" data-carousel-image>
+                <div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div>
               </div>
-              <span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span>
+              <div class="carousel-footer">
+                <p data-carousel-caption>Project library and game design documents</p>
+                <div class="carousel-controls">
+                  <button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                  <div class="carousel-dots" data-carousel-dots data-i18n-aria-label="carousel.navigation" aria-label="Screenshot navigation"></div>
+                  <button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                </div>
+                <span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span>
+              </div>
             </div>
-          </div>
+          </article>
         </div>
-      </section>
-
-      <section class="section product-feature" id="ai-agent">
-        <div class="wrap grid">
-          <div class="feature-copy">
-            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
-            <h2 class="t-lg" data-i18n="feature.agent.title">AI Agent</h2>
-            <p data-i18n="feature.agent.body">The AI Agent understands the documents and data in your current project. Ask in natural language to find information, organize content, and make reviewed project changes.</p>
-          </div>
-          <div class="feature-carousel" data-carousel="ai-agent">
-            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="AI assistance available across the Keco workspace" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
-            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.agent.slide1">AI assistance available across the Keco workspace</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section product-feature" id="simulator">
-        <div class="wrap grid">
-          <div class="feature-copy">
-            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
-            <h2 class="t-lg" data-i18n="feature.simulator.title">Simulator</h2>
-            <p data-i18n="feature.simulator.body">A battle and numbers sandbox for testing systems before implementation. Run scenarios, inspect results, and find balance problems while they are still inexpensive to fix.</p>
-          </div>
-          <div class="feature-carousel" data-carousel="simulator">
-            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Simulation access alongside project libraries" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
-            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.simulator.slide1">Simulation access alongside project libraries</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section product-feature" id="script">
-        <div class="wrap grid">
-          <div class="feature-copy">
-            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
-            <h2 class="t-lg" data-i18n="feature.script.title">Script</h2>
-            <p data-i18n="feature.script.body">Turn design documents into editable dialogue scripts and branching flows. Keep narrative structure, character dialogue, and project context together.</p>
-          </div>
-          <div class="feature-carousel" data-carousel="script">
-            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Script workspace available from the product rail" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
-            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.script.slide1">Script workspace available from the product rail</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section product-feature" id="map">
-        <div class="wrap grid">
-          <div class="feature-copy">
-            <span class="eyebrow" data-i18n="feature.eyebrow">Keco Studio feature</span>
-            <h2 class="t-lg" data-i18n="feature.map.title">Map</h2>
-            <p data-i18n="feature.map.body">Plan, generate, and iterate on game maps with reusable references. Carry design intent and project assets into every map revision.</p>
-          </div>
-          <div class="feature-carousel" data-carousel="map">
-            <div class="carousel-stage"><img src="assets/screenshots/屏幕截图 2026-10-30 104821.png" alt="Map tools connected to the active project" width="1893" height="1012" data-carousel-image><div class="carousel-error" data-carousel-error hidden><span data-i18n="carousel.error">The product screenshot could not be loaded.</span><button type="button" data-carousel-retry data-i18n="carousel.retry">Reload screenshot</button></div></div>
-            <div class="carousel-footer"><p data-carousel-caption data-i18n="feature.map.slide1">Map tools connected to the active project</p><div class="carousel-controls"><button class="icon-btn carousel-arrow" type="button" data-carousel-prev data-i18n-aria-label="carousel.previous" aria-label="Previous screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div class="carousel-dots" data-carousel-dots aria-label="Screenshot navigation"></div><button class="icon-btn carousel-arrow" type="button" data-carousel-next data-i18n-aria-label="carousel.next" aria-label="Next screenshot"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><span class="t-label muted" data-carousel-status aria-live="polite">Screenshot 1 of 3</span></div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
     <section class="section downloads" id="downloads">
       <div class="wrap">
@@ -179,23 +142,32 @@
           <h2 class="t-lg" data-i18n="download.sectionTitle">Choose the build for your computer.</h2>
           <p data-i18n="download.sectionBody">Download without registering first. Sign in or create an account when Keco Studio opens.</p>
         </div>
+        <div class="download-recommendation" data-download-recommendation>
+          <div class="download-recommendation-copy">
+            <span class="t-label bold" data-i18n="download.recommended">Recommended for this device</span>
+            <h3 class="t-md" data-recommended-title>Choose a desktop version</h3>
+            <p class="t-label muted" data-recommended-meta>Version v0.1.7 · Published 2026-09-29</p>
+          </div>
+          <a class="btn btn-primary" href="#downloads" data-recommended-download data-i18n="download.unknown">Choose a desktop version</a>
+        </div>
+        <p class="download-alternatives-label t-label muted" data-i18n="download.otherVersions">All desktop versions</p>
         <div class="download-grid">
-          <article class="download-option">
-            <div><span class="t-label muted">Windows · x64</span><h3 class="t-xs">Windows</h3></div>
+          <article class="download-option" data-download-option="windows-x64">
+            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">Windows · x64</span><h3 class="t-xs">Windows</h3></div>
             <p class="t-label muted">v0.1.7 · .exe · 5.1 MB · 2026-09-29</p>
             <a class="btn btn-primary" data-download="windows-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-Setup-0.1.7-windows-x64.exe" data-i18n="download.windows">Download for Windows</a>
           </article>
-          <article class="download-option">
-            <div><span class="t-label muted">macOS · Apple Silicon</span><h3 class="t-xs">Mac</h3></div>
+          <article class="download-option" data-download-option="macos-arm64">
+            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Apple Silicon</span><h3 class="t-xs">Mac</h3></div>
             <p class="t-label muted">v0.1.7 · .dmg · 1.8 MB · 2026-09-29</p>
             <a class="btn btn-primary" data-download="macos-arm64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-arm64.dmg" data-i18n="download.macosArm">Download for Mac - Apple Silicon</a>
           </article>
-          <article class="download-option">
-            <div><span class="t-label muted">macOS · Intel</span><h3 class="t-xs">Mac</h3></div>
+          <article class="download-option" data-download-option="macos-x64">
+            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Intel</span><h3 class="t-xs">Mac</h3></div>
             <p class="t-label muted">v0.1.7 · .dmg · 1.9 MB · 2026-09-29</p>
             <a class="btn btn-primary" data-download="macos-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-x64.dmg" data-i18n="download.macosIntel">Download for Mac - Intel</a>
           </article>
-          <article class="download-option is-disabled">
+          <article class="download-option is-disabled" data-download-option="linux-x64">
             <div><span class="t-label muted">Linux · desktop</span><h3 class="t-xs">Linux</h3></div>
             <p class="t-label muted" data-i18n="download.comingSoon">Coming soon</p>
             <button class="btn btn-line" type="button" disabled data-i18n="download.linuxSoon">Linux coming soon</button>
@@ -213,7 +185,7 @@
         <span class="eyebrow" data-i18n="requirements.eyebrow">Version and requirements</span>
         <div class="section-heading grid"><h2 class="t-lg" data-i18n="requirements.title">Check your computer before installing.</h2><p class="muted" data-i18n="requirements.note">Temporary requirements for v0.1.7. They will be updated as the desktop client evolves.</p></div>
         <div class="requirements-grid">
-          <div class="requirements-table" role="table" aria-label="System requirements">
+          <div class="requirements-table" role="table" data-i18n-aria-label="requirements.tableLabel" aria-label="System requirements">
             <div class="requirements-row requirements-head" role="row"><span role="columnheader" data-i18n="requirements.item">Requirement</span><span role="columnheader" data-i18n="requirements.minimum">Minimum</span><span role="columnheader" data-i18n="requirements.recommended">Recommended</span></div>
             <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.os">Operating system</strong><span role="cell" data-i18n="requirements.osMin">Windows 10 64-bit or macOS 12</span><span role="cell" data-i18n="requirements.osRec">Windows 11 64-bit or current macOS</span></div>
             <div class="requirements-row" role="row"><strong role="cell" data-i18n="requirements.memory">Memory</strong><span role="cell" data-i18n="requirements.memoryMin">4 GB</span><span role="cell" data-i18n="requirements.memoryRec">8 GB</span></div>
@@ -254,7 +226,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="ft-top"><div><a href="#top" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a><p class="ft-tag" data-i18n="footer.tagline">Make your game, one slice at a time.</p></div><button class="language-link footer-language" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button></div>
+      <div class="ft-top"><div><a href="#top" data-i18n-aria-label="nav.home" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a><p class="ft-tag" data-i18n="footer.tagline">Make your game, one slice at a time.</p></div><button class="language-link footer-language" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button></div>
       <div class="ft-cols footer-columns">
         <div><h3 data-i18n="footer.product">Product</h3><ul><li><a href="#downloads" data-i18n="footer.download">Download</a></li><li><a href="#requirements" data-i18n="footer.requirements">System requirements</a></li><li><a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="footer.release">Release notes</a></li></ul></div>
         <div><h3 data-i18n="footer.help">Help</h3><ul><li><span data-i18n="footer.docs">Documentation - Coming soon</span></li><li><a href="#faq" data-i18n="footer.faq">FAQ</a></li><li><span data-i18n="footer.support">Contact support - Coming soon</span></li></ul></div>
