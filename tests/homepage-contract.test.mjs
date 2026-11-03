@@ -5,12 +5,14 @@ import test from "node:test";
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 
 test("homepage exposes the approved product journey", () => {
-  for (const id of ["game-design-system", "ai-agent", "simulator", "script", "map", "downloads", "requirements", "faq"]) {
+  for (const id of ["game-design-system", "ai-agent", "simulator", "script", "map", "download-dialog-title", "requirements", "faq"]) {
     assert.match(html, new RegExp(`id=["']${id}["']`));
   }
   assert.match(html, /Make your game, one slice at a time\./);
   assert.match(html, /data-language-toggle/);
-  assert.match(html, /site-core\.js\?v=prd-1/);
+  assert.match(html, /styles\.css\?v=prd-2/);
+  assert.match(html, /site-core\.js\?v=prd-2/);
+  assert.match(html, /site\.js\?v=prd-2/);
   assert.match(html, /assets\/screenshots\/屏幕截图 2026-10-30 104821\.png/);
 });
 
@@ -47,10 +49,14 @@ test("homepage keeps all feature descriptions available without JavaScript", () 
 });
 
 test("homepage presents a detected-device download before compact alternatives", () => {
+  assert.equal((html.match(/<dialog[^>]*data-download-dialog(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-download-dialog-open(?:\s|>)/g) || []).length, 6);
   assert.equal((html.match(/data-download-recommendation(?:\s|>)/g) || []).length, 1);
   assert.equal((html.match(/data-recommended-download(?:\s|>)/g) || []).length, 1);
   assert.equal((html.match(/data-download-option=/g) || []).length, 4);
   assert.equal((html.match(/data-recommended-badge(?:\s|>)/g) || []).length, 3);
+  assert.doesNotMatch(html, /href=["']#downloads["']/);
+  assert.doesNotMatch(html, /<section[^>]*class=["'][^"']*\bdownloads\b/);
 });
 
 test("homepage keeps eight FAQ items collapsed by default", () => {

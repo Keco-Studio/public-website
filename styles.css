@@ -575,6 +575,41 @@ ul { list-style: none; margin: 0; padding: 0; }
 .section-heading { align-items: end; margin-top: 16px; }
 .section-heading h2 { grid-column: span 7; }
 .section-heading > p { grid-column: span 5; }
+.has-open-dialog { overflow: hidden; }
+.download-dialog {
+  width: min(1180px, calc(100% - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+.download-dialog::backdrop { background: rgba(5, 7, 13, .72); }
+.download-dialog-shell { max-height: calc(100dvh - 50px); overflow-y: auto; }
+.download-dialog-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.download-dialog-header h2 { margin-top: 6px; }
+.download-dialog-header p { max-width: 760px; margin-top: 12px; }
+.download-dialog-close { border: 1px solid var(--line); background: var(--panel); }
+.download-dialog-close:hover { border-color: var(--accent); color: var(--accent); }
+.download-dialog-close span { font-size: 34px; line-height: 1; font-weight: 300; }
+.download-dialog-body { padding: 32px; }
+.download-dialog .download-recommendation { margin-top: 0; }
 .download-recommendation {
   min-height: 220px;
   display: grid;
@@ -679,6 +714,10 @@ ul { list-style: none; margin: 0; padding: 0; }
   .feature-panel-copy { grid-template-columns: 1fr; gap: 10px; padding: 22px 20px; }
   .carousel-footer { min-height: 132px; grid-template-columns: 1fr; grid-template-rows: auto auto; }
   .carousel-controls { grid-column: 1; grid-row: 2; justify-content: space-between; }
+  .download-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px); }
+  .download-dialog-shell { max-height: calc(100dvh - 26px); }
+  .download-dialog-header { padding: 22px 20px; }
+  .download-dialog-body { padding: 24px 20px; }
   .download-recommendation { min-height: 0; grid-template-columns: 1fr; padding: 28px 20px; }
   .download-recommendation .btn { min-width: 0; width: 100%; }
   .download-alternatives-label { margin-top: 40px; }
