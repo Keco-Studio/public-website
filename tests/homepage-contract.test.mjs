@@ -28,11 +28,17 @@ test("homepage has direct supported fallbacks and no dead hash controls", () => 
 
 test("homepage uses one accessible feature showcase instead of five repeated sections", () => {
   assert.equal((html.match(/data-feature-showcase(?:\s|>)/g) || []).length, 1);
+  assert.equal((html.match(/data-feature-link=/g) || []).length, 10);
   assert.equal((html.match(/data-feature-tab=/g) || []).length, 5);
   assert.equal((html.match(/role=["']tab["']/g) || []).length, 5);
   assert.equal((html.match(/data-feature-panel(?:\s|>)/g) || []).length, 1);
   assert.equal((html.match(/data-feature-carousel(?:\s|>)/g) || []).length, 1);
   assert.doesNotMatch(html, /class=["'][^"']*\bproduct-feature\b/);
+});
+
+test("homepage omits redundant release and carousel status copy", () => {
+  assert.doesNotMatch(html, /class=["'][^"']*\bhero-release\b/);
+  assert.doesNotMatch(html, /data-carousel-status(?:\s|>)/);
 });
 
 test("homepage keeps all feature descriptions available without JavaScript", () => {
