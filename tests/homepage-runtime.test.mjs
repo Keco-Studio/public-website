@@ -174,6 +174,10 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
   ].map(([key, id]) => new FakeNode({ "data-feature-tab": key, id }));
   const featureLinks = ["game-design-system", "ai-agent", "simulator", "script", "map"]
     .map((key) => new FakeNode({ "data-feature-link": key, href: `#${key}` }));
+  const sectionLinks = [
+    new FakeNode({ "data-section-link": "pricing", href: "#pricing" }),
+    new FakeNode({ "data-section-link": "pricing", href: "#pricing" })
+  ];
   const menuButton = new FakeNode({
     "aria-expanded": mobileMenuOpen ? "true" : "false",
     "aria-label": mobileMenuOpen ? "Close menu" : "Open menu"
@@ -233,6 +237,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       if (selector === "[data-i18n-src]") return [proofImage];
       if (selector === "[data-feature-showcase]") return carousel ? [featureRoot] : [];
       if (selector === "[data-feature-link]") return featureLinks;
+      if (selector === "[data-section-link]") return sectionLinks;
       if (selector === "[data-download-dialog-open]") return downloadDialogOpeners;
       if (selector === "[data-download-option]") return downloadOptions;
       return [];
@@ -302,6 +307,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       previousButton,
       primaryDownload,
       proofImage,
+      sectionLinks,
       recommendedDownload,
       recommendedTitle,
     },
@@ -503,6 +509,16 @@ test("mobile feature navigation closes the menu before scrolling the showcase", 
   assert.equal(runtime.nodes.menuButton.getAttribute("aria-expanded"), "false");
   assert.equal(runtime.nodes.menuButton.getAttribute("aria-label"), "Open menu");
   assert.equal(runtime.nodes.featureRoot.scrollCalls[0].menuHidden, true);
+});
+
+test("mobile pricing navigation closes the menu and keeps native anchor scrolling", () => {
+  const runtime = bootHomepage({ mobileMenuOpen: true });
+
+  const event = runtime.nodes.sectionLinks[1].click();
+
+  assert.equal(event.defaultPrevented, false);
+  assert.equal(runtime.nodes.mobilePanel.hidden, true);
+  assert.equal(runtime.nodes.menuButton.getAttribute("aria-expanded"), "false");
 });
 
 test("feature navigation respects reduced-motion scrolling", () => {
