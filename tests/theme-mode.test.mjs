@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const pages = [
-  { file: "index.html", version: "prd-1" },
+  { file: "index.html", version: "prd-2" },
   { file: "game-designers.html", version: "theme-time-3" },
   { file: "pricing.html", version: "theme-time-3" }
 ];

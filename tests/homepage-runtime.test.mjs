@@ -21,6 +21,7 @@ class FakeNode {
     this.style = {};
     this.textContent = "";
     this.focused = false;
+    this.open = false;
     this.scrollCalls = [];
     const classes = new Set();
     this.classList = {
@@ -100,6 +101,18 @@ class FakeNode {
     this.scrollCalls.push(options);
   }
 
+  showModal() {
+    this.open = true;
+    this.setAttribute("open", "");
+  }
+
+  close() {
+    if (!this.open) return;
+    this.open = false;
+    this.removeAttribute("open");
+    this.trigger("close");
+  }
+
   setSelector(selector, node) {
     this.selectors.set(selector, node);
   }
@@ -121,7 +134,14 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     "data-i18n": "language.switch",
     "data-i18n-aria-label": "language.switchLabel"
   });
-  const primaryDownload = new FakeNode({ href: "#downloads" });
+  const primaryDownload = new FakeNode({ href: "https://example.com/releases", "data-primary-download": "" });
+  const downloadDialogOpeners = [
+    primaryDownload,
+    ...Array.from({ length: 5 }, () => new FakeNode({ href: "https://example.com/releases" }))
+  ];
+  const downloadDialog = new FakeNode();
+  const downloadDialogClose = new FakeNode();
+  downloadDialog.setSelector("[data-download-dialog-close]", downloadDialogClose);
   const recommendedDownload = new FakeNode();
   const recommendedTitle = new FakeNode();
   const recommendedMeta = new FakeNode();
@@ -155,6 +175,12 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
   });
   const mobilePanel = new FakeNode();
   mobilePanel.hidden = !mobileMenuOpen;
+  downloadDialog.showCalls = [];
+  downloadDialog.showModal = function () {
+    this.open = true;
+    this.setAttribute("open", "");
+    this.showCalls.push({ menuHidden: mobilePanel.hidden });
+  };
   featureRoot.scrollIntoView = function (options) {
     this.scrollCalls.push({ ...options, menuHidden: mobilePanel.hidden });
   };
@@ -178,7 +204,9 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
   featureRoot.setSelector("[data-feature-body]", featureBody);
   featureRoot.setSelector("[data-feature-carousel]", carouselRoot);
   featureRoot.setSelectorAll("[data-feature-tab]", featureTabs);
-  const documentElement = { dataset: {}, lang: "en" };
+  const documentElement = new FakeNode();
+  documentElement.dataset = {};
+  documentElement.lang = "en";
   const document = {
     documentElement,
     title: "",
@@ -186,6 +214,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     getElementById(id) { return id === "mobile-panel" ? mobilePanel : null; },
     querySelector(selector) {
       if (selector === ".menu-btn") return menuButton;
+      if (selector === "[data-download-dialog]") return downloadDialog;
       if (selector === "[data-primary-download]") return primaryDownload;
       if (selector === "[data-download-recommendation]") return downloadRecommendation;
       if (selector === 'meta[name="description"]') return meta;
@@ -198,6 +227,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       if (selector === "[data-i18n-alt]") return [proofImage];
       if (selector === "[data-feature-showcase]") return carousel ? [featureRoot] : [];
       if (selector === "[data-feature-link]") return featureLinks;
+      if (selector === "[data-download-dialog-open]") return downloadDialogOpeners;
       if (selector === "[data-download-option]") return downloadOptions;
       return [];
     }
@@ -248,6 +278,9 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       carousel: carouselRoot,
       carouselImage,
       downloadOptions,
+      downloadDialog,
+      downloadDialogClose,
+      downloadDialogOpeners,
       dots,
       featureBody,
       featurePanel,
@@ -269,6 +302,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     storage,
     timeouts,
     historyCalls,
+    get hash() { return window.location.hash; },
     changeHash(hash) {
       window.location.hash = hash;
       for (const listener of windowListeners.get("hashchange") || []) listener();
@@ -308,14 +342,63 @@ test("Windows detection points the primary action at the real installer without 
   assert.equal(runtime.nodes.downloadOptions[0].classList.contains("is-recommended"), true);
   assert.equal(runtime.nodes.downloadOptions[0].querySelector("[data-recommended-badge]").hidden, false);
   assert.equal(runtime.nodes.downloadOptions[1].classList.contains("is-recommended"), false);
+  runtime.nodes.primaryDownload.click();
+  assert.equal(runtime.nodes.downloadDialog.open, false);
 });
 
-test("Linux detection presents a non-downloadable coming-soon state", () => {
+test("unknown platform turns the primary version selector into a dialog trigger", () => {
+  const runtime = bootHomepage({ platform: "Other", userAgent: "Other", initialHash: "#map" });
+
+  const event = runtime.nodes.primaryDownload.click();
+
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(runtime.nodes.downloadDialog.open, true);
+  assert.equal(runtime.nodes.primaryDownload.getAttribute("aria-disabled"), null);
+  assert.equal(runtime.hash, "#map");
+});
+
+test("download version controls open the dialog without changing the current hash", () => {
+  const runtime = bootHomepage({ initialHash: "#simulator", mobileMenuOpen: true });
+
+  const event = runtime.nodes.downloadDialogOpeners[1].click();
+
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(runtime.nodes.downloadDialog.open, true);
+  assert.equal(runtime.hash, "#simulator");
+  assert.equal(runtime.nodes.mobilePanel.hidden, true);
+  assert.equal(runtime.nodes.downloadDialog.showCalls[0].menuHidden, true);
+  assert.equal(runtime.nodes.downloadDialogClose.focused, true);
+});
+
+test("download dialog close control restores focus to its opener", () => {
+  const runtime = bootHomepage();
+  const opener = runtime.nodes.downloadDialogOpeners[2];
+
+  opener.click();
+  runtime.nodes.downloadDialogClose.click();
+
+  assert.equal(runtime.nodes.downloadDialog.open, false);
+  assert.equal(opener.focused, true);
+});
+
+test("download dialog closes when its backdrop is clicked", () => {
+  const runtime = bootHomepage();
+
+  runtime.nodes.downloadDialogOpeners[0].click();
+  assert.equal(runtime.nodes.downloadDialog.open, true);
+  runtime.nodes.downloadDialog.trigger("click", { target: runtime.nodes.downloadDialog });
+
+  assert.equal(runtime.nodes.downloadDialog.open, false);
+});
+
+test("Linux detection presents a coming-soon label that still opens version choices", () => {
   const runtime = bootHomepage({ platform: "Linux x86_64", userAgent: "X11; Linux x86_64" });
 
-  assert.equal(runtime.nodes.primaryDownload.href, "");
-  assert.equal(runtime.nodes.primaryDownload.getAttribute("aria-disabled"), "true");
+  assert.equal(runtime.nodes.primaryDownload.href, "https://example.com/releases");
+  assert.equal(runtime.nodes.primaryDownload.getAttribute("aria-disabled"), null);
   assert.equal(runtime.nodes.primaryDownload.textContent, "Linux coming soon");
+  runtime.nodes.primaryDownload.click();
+  assert.equal(runtime.nodes.downloadDialog.open, true);
 });
 
 test("unsupported devices still receive complete Chinese image text", () => {

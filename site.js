@@ -28,6 +28,47 @@
       : open ? 'Close menu' : 'Open menu');
   }
 
+  function initDownloadDialog() {
+    var dialog = document.querySelector('[data-download-dialog]');
+    if (!dialog) return;
+    var closeButton = dialog.querySelector('[data-download-dialog-close]');
+    var primaryDownload = document.querySelector('[data-primary-download]');
+    var lastTrigger = null;
+
+    function closeDialog() {
+      if (typeof dialog.close === 'function') dialog.close();
+      else {
+        dialog.removeAttribute('open');
+        document.documentElement.classList.remove('has-open-dialog');
+        if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+      }
+    }
+
+    document.querySelectorAll('[data-download-dialog-open]').forEach(function (trigger) {
+      trigger.addEventListener('click', function (event) {
+        if (trigger === primaryDownload && trigger.dataset.downloadKey) return;
+        event.preventDefault();
+        lastTrigger = trigger;
+        setMobileMenuOpen(false);
+        document.documentElement.classList.add('has-open-dialog');
+        if (!dialog.open) {
+          if (typeof dialog.showModal === 'function') dialog.showModal();
+          else dialog.setAttribute('open', '');
+        }
+        if (closeButton && typeof closeButton.focus === 'function') closeButton.focus();
+      });
+    });
+
+    if (closeButton) closeButton.addEventListener('click', closeDialog);
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) closeDialog();
+    });
+    dialog.addEventListener('close', function () {
+      document.documentElement.classList.remove('has-open-dialog');
+      if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+    });
+  }
+
   // Theme follows the local day/night schedule until the visitor makes an explicit choice.
   var themeButton = document.querySelector('.theme-btn');
   if (themeButton) {
@@ -151,8 +192,7 @@
       primary.removeAttribute('aria-disabled');
       primary.dataset.downloadKey = view.download.key;
     } else {
-      primary.removeAttribute('href');
-      primary.setAttribute('aria-disabled', 'true');
+      primary.removeAttribute('aria-disabled');
       delete primary.dataset.downloadKey;
     }
     var recommendation = document.querySelector('[data-download-recommendation]');
@@ -451,6 +491,7 @@
   }
 
   initLanguage();
+  initDownloadDialog();
   initDownloads();
   initFeatureShowcases();
 

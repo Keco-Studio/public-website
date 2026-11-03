@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=prd-1">
-  <script src="site-core.js?v=prd-1" defer></script>
-  <script src="site.js?v=prd-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=prd-2">
+  <script src="site-core.js?v=prd-2" defer></script>
+  <script src="site.js?v=prd-2" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -32,7 +32,7 @@
             <svg class="theme-icon-sun" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="5" stroke-width="1.5"></circle><path d="M14 3v3M14 22v3M3 14h3M22 14h3M6.2 6.2l2.1 2.1M19.7 19.7l2.1 2.1M21.8 6.2l-2.1 2.1M8.3 19.7l-2.1 2.1" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </button>
           <button class="language-button" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button>
-          <a href="#downloads" class="btn btn-primary header-download" data-i18n="nav.download">Download client</a>
+          <a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" class="btn btn-primary header-download" data-download-dialog-open data-i18n="nav.download">Download client</a>
           <button type="button" class="icon-btn menu-btn" data-i18n-aria-label="menu.open" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-panel">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 9h18M5 14h18M5 19h18" stroke-width="1.5" stroke-linecap="round"></path></svg>
           </button>
@@ -46,7 +46,7 @@
         <a class="m-link" href="#simulator" data-feature-link="simulator" data-i18n="nav.simulator">Simulator</a>
         <a class="m-link" href="#script" data-feature-link="script" data-i18n="nav.script">Script</a>
         <a class="m-link" href="#map" data-feature-link="map" data-i18n="nav.map">Map</a>
-        <a class="btn btn-primary" href="#downloads" data-i18n="nav.download">Download client</a>
+        <a class="btn btn-primary" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-download-dialog-open data-i18n="nav.download">Download client</a>
       </div>
     </div>
   </header>
@@ -59,8 +59,8 @@
           <h1 class="t-display" data-i18n="hero.headline">Make your game, one slice at a time.</h1>
           <p data-i18n="hero.body">Keco is a workbench for building games. You write the design; Keco turns it into data and art, helps you build a playable slice in Godot, then scores it against a fixed standard and tells you what to fix next.</p>
           <div class="btn-row">
-            <a class="btn btn-primary" href="#downloads" data-primary-download data-i18n="download.unknown">Choose a desktop version</a>
-            <a class="btn btn-line" href="#downloads" data-i18n="hero.choose">Choose another version</a>
+            <a class="btn btn-primary" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-primary-download data-download-dialog-open data-i18n="download.unknown">Choose a desktop version</a>
+            <a class="btn btn-line" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-download-dialog-open data-i18n="hero.choose">Choose another version</a>
           </div>
         </div>
       </div>
@@ -122,50 +122,55 @@
       </div>
     </section>
 
-    <section class="section downloads" id="downloads">
-      <div class="wrap">
-        <span class="eyebrow" data-i18n="download.sectionEyebrow">Download Keco Studio</span>
-        <div class="section-heading grid">
-          <h2 class="t-lg" data-i18n="download.sectionTitle">Choose the build for your computer.</h2>
-          <p data-i18n="download.sectionBody">Download without registering first. Sign in or create an account when Keco Studio opens.</p>
-        </div>
-        <div class="download-recommendation" data-download-recommendation>
-          <div class="download-recommendation-copy">
-            <span class="t-label bold" data-i18n="download.recommended">Recommended for this device</span>
-            <h3 class="t-md" data-recommended-title>Choose a desktop version</h3>
-            <p class="t-label muted" data-recommended-meta>Version v0.1.7 · Published 2026-09-29</p>
+    <dialog class="download-dialog" data-download-dialog aria-labelledby="download-dialog-title">
+      <div class="download-dialog-shell">
+        <header class="download-dialog-header">
+          <div>
+            <span class="eyebrow" data-i18n="download.sectionEyebrow">Download Keco Studio</span>
+            <h2 class="t-md" id="download-dialog-title" data-i18n="download.sectionTitle">Choose the build for your computer.</h2>
+            <p class="muted" data-i18n="download.sectionBody">Download without registering first. Sign in or create an account when Keco Studio opens.</p>
           </div>
-          <a class="btn btn-primary" href="#downloads" data-recommended-download data-i18n="download.unknown">Choose a desktop version</a>
-        </div>
-        <p class="download-alternatives-label t-label muted" data-i18n="download.otherVersions">All desktop versions</p>
-        <div class="download-grid">
-          <article class="download-option" data-download-option="windows-x64">
-            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">Windows · x64</span><h3 class="t-xs">Windows</h3></div>
-            <p class="t-label muted">v0.1.7 · .exe · 5.1 MB · 2026-09-29</p>
-            <a class="btn btn-primary" data-download="windows-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-Setup-0.1.7-windows-x64.exe" data-i18n="download.windows">Download for Windows</a>
-          </article>
-          <article class="download-option" data-download-option="macos-arm64">
-            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Apple Silicon</span><h3 class="t-xs">Mac</h3></div>
-            <p class="t-label muted">v0.1.7 · .dmg · 1.8 MB · 2026-09-29</p>
-            <a class="btn btn-primary" data-download="macos-arm64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-arm64.dmg" data-i18n="download.macosArm">Download for Mac - Apple Silicon</a>
-          </article>
-          <article class="download-option" data-download-option="macos-x64">
-            <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Intel</span><h3 class="t-xs">Mac</h3></div>
-            <p class="t-label muted">v0.1.7 · .dmg · 1.9 MB · 2026-09-29</p>
-            <a class="btn btn-primary" data-download="macos-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-x64.dmg" data-i18n="download.macosIntel">Download for Mac - Intel</a>
-          </article>
-          <article class="download-option is-disabled" data-download-option="linux-x64">
-            <div><span class="t-label muted">Linux · desktop</span><h3 class="t-xs">Linux</h3></div>
-            <p class="t-label muted" data-i18n="download.comingSoon">Coming soon</p>
-            <button class="btn btn-line" type="button" disabled data-i18n="download.linuxSoon">Linux coming soon</button>
-          </article>
-        </div>
-        <div class="download-status" data-download-status hidden aria-live="polite">
-          <div><span class="eyebrow" data-i18n="download.statusTitle">Your download is starting</span><p data-download-status-body>Open the installer when your browser finishes downloading it.</p></div>
-          <div class="btn-row"><a class="arrow-link" data-download-retry href="#downloads" data-i18n="download.retry">Download again</a><a class="arrow-link" href="#downloads" data-i18n="download.other">Choose another version</a></div>
+          <button class="icon-btn download-dialog-close" type="button" data-download-dialog-close data-i18n-aria-label="download.close" aria-label="Close download choices"><span aria-hidden="true">&times;</span></button>
+        </header>
+        <div class="download-dialog-body">
+          <div class="download-recommendation" data-download-recommendation>
+            <div class="download-recommendation-copy">
+              <span class="t-label bold" data-i18n="download.recommended">Recommended for this device</span>
+              <h3 class="t-md" data-recommended-title>Choose a desktop version</h3>
+              <p class="t-label muted" data-recommended-meta>Version v0.1.7 · Published 2026-09-29</p>
+            </div>
+            <a class="btn btn-primary" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-recommended-download data-i18n="download.unknown">Choose a desktop version</a>
+          </div>
+          <p class="download-alternatives-label t-label muted" data-i18n="download.otherVersions">All desktop versions</p>
+          <div class="download-grid">
+            <article class="download-option" data-download-option="windows-x64">
+              <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">Windows · x64</span><h3 class="t-xs">Windows</h3></div>
+              <p class="t-label muted">v0.1.7 · .exe · 5.1 MB · 2026-09-29</p>
+              <a class="btn btn-primary" data-download="windows-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-Setup-0.1.7-windows-x64.exe" data-i18n="download.windows">Download for Windows</a>
+            </article>
+            <article class="download-option" data-download-option="macos-arm64">
+              <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Apple Silicon</span><h3 class="t-xs">Mac</h3></div>
+              <p class="t-label muted">v0.1.7 · .dmg · 1.8 MB · 2026-09-29</p>
+              <a class="btn btn-primary" data-download="macos-arm64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-arm64.dmg" data-i18n="download.macosArm">Download for Mac - Apple Silicon</a>
+            </article>
+            <article class="download-option" data-download-option="macos-x64">
+              <div><span class="recommended-badge t-label" data-recommended-badge hidden data-i18n="download.recommended">Recommended for this device</span><span class="t-label muted">macOS · Intel</span><h3 class="t-xs">Mac</h3></div>
+              <p class="t-label muted">v0.1.7 · .dmg · 1.9 MB · 2026-09-29</p>
+              <a class="btn btn-primary" data-download="macos-x64" href="https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/Keco-Studio-0.1.7-macos-x64.dmg" data-i18n="download.macosIntel">Download for Mac - Intel</a>
+            </article>
+            <article class="download-option is-disabled" data-download-option="linux-x64">
+              <div><span class="t-label muted">Linux · desktop</span><h3 class="t-xs">Linux</h3></div>
+              <p class="t-label muted" data-i18n="download.comingSoon">Coming soon</p>
+              <button class="btn btn-line" type="button" disabled data-i18n="download.linuxSoon">Linux coming soon</button>
+            </article>
+          </div>
+          <div class="download-status" data-download-status hidden aria-live="polite">
+            <div><span class="eyebrow" data-i18n="download.statusTitle">Your download is starting</span><p data-download-status-body>Open the installer when your browser finishes downloading it.</p></div>
+            <div class="btn-row"><a class="arrow-link" data-download-retry href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="download.retry">Download again</a></div>
+          </div>
         </div>
       </div>
-    </section>
+    </dialog>
 
     <section class="section requirements" id="requirements">
       <div class="wrap">
@@ -206,7 +211,7 @@
 
     <section class="section final-download">
       <div class="wrap grid closing">
-        <div class="closing-main"><span class="eyebrow" data-i18n="closing.eyebrow">Start with one slice</span><h2 class="t-lg" data-i18n="closing.title">Download Keco Studio and bring your game design into one workspace.</h2><div class="btn-row"><a class="btn btn-primary" href="#downloads" data-i18n="nav.download">Download client</a><a class="btn btn-line" href="#requirements" data-i18n="closing.requirements">Review system requirements</a></div></div>
+        <div class="closing-main"><span class="eyebrow" data-i18n="closing.eyebrow">Start with one slice</span><h2 class="t-lg" data-i18n="closing.title">Download Keco Studio and bring your game design into one workspace.</h2><div class="btn-row"><a class="btn btn-primary" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-download-dialog-open data-i18n="nav.download">Download client</a><a class="btn btn-line" href="#requirements" data-i18n="closing.requirements">Review system requirements</a></div></div>
       </div>
     </section>
   </main>
@@ -215,7 +220,7 @@
     <div class="wrap">
       <div class="ft-top"><div><a href="#top" data-i18n-aria-label="nav.home" aria-label="Keco Studio home"><img src="assets/keco-logo.png" alt="Keco" width="95" height="35"></a><p class="ft-tag" data-i18n="footer.tagline">Make your game, one slice at a time.</p></div><button class="language-link footer-language" type="button" data-language-toggle data-i18n="language.switch" data-i18n-aria-label="language.switchLabel" aria-label="切换到中文">中文</button></div>
       <div class="ft-cols footer-columns">
-        <div><h3 data-i18n="footer.product">Product</h3><ul><li><a href="#downloads" data-i18n="footer.download">Download</a></li><li><a href="#requirements" data-i18n="footer.requirements">System requirements</a></li><li><a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="footer.release">Release notes</a></li></ul></div>
+        <div><h3 data-i18n="footer.product">Product</h3><ul><li><a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-download-dialog-open data-i18n="footer.download">Download</a></li><li><a href="#requirements" data-i18n="footer.requirements">System requirements</a></li><li><a href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-i18n="footer.release">Release notes</a></li></ul></div>
         <div><h3 data-i18n="footer.help">Help</h3><ul><li><span data-i18n="footer.docs">Documentation - Coming soon</span></li><li><a href="#faq" data-i18n="footer.faq">FAQ</a></li><li><span data-i18n="footer.support">Contact support - Coming soon</span></li></ul></div>
         <div><h3 data-i18n="footer.legal">Legal</h3><ul><li><span data-i18n="footer.terms">Terms - Coming soon</span></li><li><span data-i18n="footer.privacy">Privacy - Coming soon</span></li><li><span data-i18n="footer.cookies">Cookie settings - Coming soon</span></li><li><span data-i18n="footer.filing">Filing - Coming soon</span></li></ul></div>
         <div><h3 data-i18n="footer.community">Community</h3><ul><li><a href="https://discord.com/invite/KecoStudio">Discord</a></li><li><a href="https://www.youtube.com/@KecoStudio">YouTube</a></li><li><a href="https://github.com/Keco-Studio">GitHub</a></li></ul></div>
