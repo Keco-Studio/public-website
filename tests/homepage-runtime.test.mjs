@@ -21,6 +21,7 @@ class FakeNode {
     this.style = {};
     this.textContent = "";
     this.focused = false;
+    this.scrollCalls = [];
     const classes = new Set();
     this.classList = {
       add(...names) { names.forEach((name) => classes.add(name)); },
@@ -39,13 +40,21 @@ class FakeNode {
   }
 
   click() {
-    this.trigger("click");
+    return this.trigger("click");
   }
 
   trigger(type, extra = {}) {
+    const event = {
+      currentTarget: this,
+      defaultPrevented: false,
+      preventDefault() { this.defaultPrevented = true; },
+      target: this,
+      ...extra
+    };
     for (const listener of this.listeners.get(type) || []) {
-      listener({ currentTarget: this, preventDefault() {}, target: this, ...extra });
+      listener(event);
     }
+    return event;
   }
 
   getAttribute(name) {
@@ -87,6 +96,10 @@ class FakeNode {
     this.children = nodes;
   }
 
+  scrollIntoView(options) {
+    this.scrollCalls.push(options);
+  }
+
   setSelector(selector, node) {
     this.selectors.set(selector, node);
   }
@@ -96,7 +109,7 @@ class FakeNode {
   }
 }
 
-function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "Other", mobile = false, carousel = false, reducedMotion = false, initialHash = "" } = {}) {
+function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "Other", mobile = false, mobileMenuOpen = false, carousel = false, reducedMotion = false, initialHash = "" } = {}) {
   const storageValues = new Map(storedLanguage ? [["keco-language", storedLanguage]] : []);
   const storage = {
     getItem(key) { return storageValues.get(key) ?? null; },
@@ -122,7 +135,6 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     return option;
   });
   const meta = new FakeNode();
-  const releaseMeta = new FakeNode();
   const proofImage = new FakeNode({ "data-i18n-alt": "hero.proofAlt" });
   const featureRoot = new FakeNode();
   const featurePanel = new FakeNode();
@@ -135,10 +147,20 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     ["script", "feature-tab-script"],
     ["map", "feature-tab-map"]
   ].map(([key, id]) => new FakeNode({ "data-feature-tab": key, id }));
+  const featureLinks = ["game-design-system", "ai-agent", "simulator", "script", "map"]
+    .map((key) => new FakeNode({ "data-feature-link": key, href: `#${key}` }));
+  const menuButton = new FakeNode({
+    "aria-expanded": mobileMenuOpen ? "true" : "false",
+    "aria-label": mobileMenuOpen ? "Close menu" : "Open menu"
+  });
+  const mobilePanel = new FakeNode();
+  mobilePanel.hidden = !mobileMenuOpen;
+  featureRoot.scrollIntoView = function (options) {
+    this.scrollCalls.push({ ...options, menuHidden: mobilePanel.hidden });
+  };
   const carouselRoot = new FakeNode();
   const carouselImage = new FakeNode();
   const carouselCaption = new FakeNode();
-  const carouselStatus = new FakeNode();
   const previousButton = new FakeNode();
   const nextButton = new FakeNode();
   const dots = new FakeNode();
@@ -146,7 +168,6 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
   const retryButton = new FakeNode();
   carouselRoot.setSelector("[data-carousel-image]", carouselImage);
   carouselRoot.setSelector("[data-carousel-caption]", carouselCaption);
-  carouselRoot.setSelector("[data-carousel-status]", carouselStatus);
   carouselRoot.setSelector("[data-carousel-prev]", previousButton);
   carouselRoot.setSelector("[data-carousel-next]", nextButton);
   carouselRoot.setSelector("[data-carousel-dots]", dots);
@@ -162,11 +183,11 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     documentElement,
     title: "",
     createElement() { return new FakeNode(); },
-    getElementById() { return null; },
+    getElementById(id) { return id === "mobile-panel" ? mobilePanel : null; },
     querySelector(selector) {
+      if (selector === ".menu-btn") return menuButton;
       if (selector === "[data-primary-download]") return primaryDownload;
       if (selector === "[data-download-recommendation]") return downloadRecommendation;
-      if (selector === "[data-release-meta]") return releaseMeta;
       if (selector === 'meta[name="description"]') return meta;
       return null;
     },
@@ -176,6 +197,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       if (selector === "[data-language-toggle]") return [languageButton];
       if (selector === "[data-i18n-alt]") return [proofImage];
       if (selector === "[data-feature-showcase]") return carousel ? [featureRoot] : [];
+      if (selector === "[data-feature-link]") return featureLinks;
       if (selector === "[data-download-option]") return downloadOptions;
       return [];
     }
@@ -230,17 +252,19 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       featureBody,
       featurePanel,
       featureRoot,
+      featureLinks,
       featureTabs,
       featureTitle,
       headline,
       languageButton,
+      menuButton,
+      mobilePanel,
       nextButton,
       previousButton,
       primaryDownload,
       proofImage,
       recommendedDownload,
       recommendedTitle,
-      releaseMeta
     },
     storage,
     timeouts,
@@ -294,10 +318,9 @@ test("Linux detection presents a non-downloadable coming-soon state", () => {
   assert.equal(runtime.nodes.primaryDownload.textContent, "Linux coming soon");
 });
 
-test("unsupported devices still receive complete Chinese release and image text", () => {
+test("unsupported devices still receive complete Chinese image text", () => {
   const runtime = bootHomepage({ storedLanguage: "zh-CN", platform: "Linux x86_64", userAgent: "Linux" });
 
-  assert.equal(runtime.nodes.releaseMeta.textContent, "版本 v0.1.7 · 发布于 2026-09-29");
   assert.equal(runtime.nodes.proofImage.getAttribute("alt"), "显示游戏设计文档的 Keco Studio 工作台");
 });
 
@@ -352,6 +375,14 @@ test("reduced motion disables carousel autoplay", () => {
   assert.equal(runtime.intervalCount, 0);
 });
 
+test("carousel remains interactive without visible slide status copy", () => {
+  const runtime = bootHomepage({ carousel: true });
+
+  runtime.nodes.nextButton.click();
+
+  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
+});
+
 test("feature selector replaces the shared panel content and resets its carousel", () => {
   const runtime = bootHomepage({ carousel: true });
 
@@ -385,6 +416,40 @@ test("feature selector follows feature hashes from the product navigation", () =
 
   assert.equal(runtime.nodes.featureRoot.dataset.activeFeature, "map");
   assert.equal(runtime.nodes.featureTabs[4].getAttribute("aria-selected"), "true");
+});
+
+test("product navigation switches both columns and scrolls the shared showcase into view", () => {
+  const runtime = bootHomepage({ carousel: true });
+
+  const event = runtime.nodes.featureLinks[4].click();
+
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(runtime.nodes.featureRoot.dataset.activeFeature, "map");
+  assert.equal(runtime.nodes.featureTabs[4].getAttribute("aria-selected"), "true");
+  assert.equal(runtime.nodes.featureTitle.textContent, "Map");
+  assert.equal(runtime.nodes.featureRoot.scrollCalls.length, 1);
+  assert.equal(runtime.nodes.featureRoot.scrollCalls[0].block, "start");
+  assert.equal(runtime.nodes.featureRoot.scrollCalls[0].behavior, "smooth");
+  assert.equal(runtime.historyCalls.at(-1).url, "#map");
+});
+
+test("mobile feature navigation closes the menu before scrolling the showcase", () => {
+  const runtime = bootHomepage({ carousel: true, mobileMenuOpen: true });
+
+  runtime.nodes.featureLinks[3].click();
+
+  assert.equal(runtime.nodes.mobilePanel.hidden, true);
+  assert.equal(runtime.nodes.menuButton.getAttribute("aria-expanded"), "false");
+  assert.equal(runtime.nodes.menuButton.getAttribute("aria-label"), "Open menu");
+  assert.equal(runtime.nodes.featureRoot.scrollCalls[0].menuHidden, true);
+});
+
+test("feature navigation respects reduced-motion scrolling", () => {
+  const runtime = bootHomepage({ carousel: true, reducedMotion: true });
+
+  runtime.nodes.featureLinks[1].click();
+
+  assert.equal(runtime.nodes.featureRoot.scrollCalls[0].behavior, "auto");
 });
 
 test("feature selector writes user choices back to the URL", () => {
