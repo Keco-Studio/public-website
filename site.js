@@ -498,10 +498,19 @@
     });
   }
 
+  function initSectionLinks() {
+    document.querySelectorAll('[data-section-link]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        setMobileMenuOpen(false);
+      });
+    });
+  }
+
   initLanguage();
   initDownloadDialog();
   initDownloads();
   initFeatureShowcases();
+  initSectionLinks();
 
   // Pixel dungeon maps used as tile imagery
   var MAPS = {

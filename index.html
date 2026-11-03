@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;800&display=swap">
-  <link rel="stylesheet" href="styles.css?v=prd-4">
-  <script src="site-core.js?v=prd-4" defer></script>
-  <script src="site.js?v=prd-4" defer></script>
+  <link rel="stylesheet" href="styles.css?v=prd-7">
+  <script src="site-core.js?v=prd-7" defer></script>
+  <script src="site.js?v=prd-7" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -25,6 +25,7 @@
           <a href="#simulator" data-feature-link="simulator" data-i18n="nav.simulator">Simulator</a>
           <a href="#script" data-feature-link="script" data-i18n="nav.script">Script</a>
           <a href="#map" data-feature-link="map" data-i18n="nav.map">Map</a>
+          <a href="#pricing" data-section-link="pricing" data-i18n="nav.pricing">Pricing</a>
         </nav>
         <div class="actions">
           <button type="button" class="icon-btn theme-btn" aria-label="Use dark mode" title="Use dark mode" aria-pressed="false">
@@ -46,6 +47,7 @@
         <a class="m-link" href="#simulator" data-feature-link="simulator" data-i18n="nav.simulator">Simulator</a>
         <a class="m-link" href="#script" data-feature-link="script" data-i18n="nav.script">Script</a>
         <a class="m-link" href="#map" data-feature-link="map" data-i18n="nav.map">Map</a>
+        <a class="m-link" href="#pricing" data-section-link="pricing" data-i18n="nav.pricing">Pricing</a>
         <a class="btn btn-primary" href="https://github.com/Keco-Studio/keco-desktop/releases/tag/v0.1.7" data-download-dialog-open data-i18n="nav.download">Download client</a>
       </div>
     </div>
@@ -119,6 +121,83 @@
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section pricing-section" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <div class="pricing-heading" id="pricing">
+          <span class="eyebrow" data-i18n="pricing.eyebrow">Pricing</span>
+          <h2 class="t-lg" id="pricing-title" data-i18n="pricing.title">Start free, then scale with your game.</h2>
+          <p class="muted" data-i18n="pricing.body">Choose the plan that matches your AI usage and team size.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card" data-pricing-plan="starter">
+            <header class="pricing-card-header">
+              <h3 class="t-xs" data-i18n="pricing.starter.name">Starter</h3>
+              <p class="pricing-tagline" data-i18n="pricing.starter.tagline">Try the core tools for free</p>
+              <p class="pricing-price"><strong data-i18n="pricing.starter.price">Free</strong></p>
+              <p class="pricing-credits" data-i18n="pricing.starter.credits">No agent credits</p>
+            </header>
+            <ul class="pricing-features">
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.starter.feature1">Dialogue table generation</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.starter.feature2">Basic config export</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.starter.feature3">Community support</span></li>
+              <li class="is-unavailable"><span class="pricing-check" aria-hidden="true">×</span><span data-i18n="pricing.starter.feature4">AI agent</span></li>
+            </ul>
+            <button class="btn btn-line pricing-action" type="button" data-i18n="pricing.starter.action">Choose Starter</button>
+          </article>
+
+          <article class="pricing-card" data-pricing-plan="pro" data-popular>
+            <span class="pricing-badge" data-i18n="pricing.popular">Most popular</span>
+            <header class="pricing-card-header">
+              <h3 class="t-xs" data-i18n="pricing.pro.name">Pro</h3>
+              <p class="pricing-tagline" data-i18n="pricing.pro.tagline">AI agent for solo creators</p>
+              <p class="pricing-price"><strong>$10</strong><span data-i18n="pricing.month">/month</span></p>
+              <p class="pricing-credits" data-i18n="pricing.pro.credits">10,000 agent credits included</p>
+            </header>
+            <ul class="pricing-features">
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.pro.feature1">AI agent access</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.pro.feature2">Script conversion pipeline</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.pro.feature3">All export formats</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.pro.feature4">Email support</span></li>
+            </ul>
+            <button class="btn btn-primary pricing-action" type="button" data-i18n="pricing.pro.action">Choose Pro</button>
+          </article>
+
+          <article class="pricing-card" data-pricing-plan="studio">
+            <header class="pricing-card-header">
+              <h3 class="t-xs" data-i18n="pricing.studio.name">Studio</h3>
+              <p class="pricing-tagline" data-i18n="pricing.studio.tagline">Built for teams and studios</p>
+              <p class="pricing-price"><strong>$50</strong><span data-i18n="pricing.month">/month</span></p>
+              <p class="pricing-credits" data-i18n="pricing.studio.credits">50,000 agent credits included</p>
+            </header>
+            <ul class="pricing-features">
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.studio.feature1">Priority processing</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.studio.feature2">Team collaboration</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.studio.feature3">Commercial usage rights</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.studio.feature4">Priority support</span></li>
+            </ul>
+            <button class="btn btn-line pricing-action" type="button" data-i18n="pricing.studio.action">Choose Studio</button>
+          </article>
+
+          <article class="pricing-card" data-pricing-plan="enterprise">
+            <header class="pricing-card-header">
+              <h3 class="t-xs" data-i18n="pricing.enterprise.name">Enterprise</h3>
+              <p class="pricing-tagline" data-i18n="pricing.enterprise.tagline">Custom deployments at scale</p>
+              <p class="pricing-price"><strong data-i18n="pricing.enterprise.price">Custom</strong></p>
+              <p class="pricing-credits" data-i18n="pricing.enterprise.credits">Custom credits volume</p>
+            </header>
+            <ul class="pricing-features">
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.enterprise.feature1">Per-seat pricing</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.enterprise.feature2">Self-hosted / SSO</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.enterprise.feature3">Dedicated consultation</span></li>
+              <li><span class="pricing-check" aria-hidden="true">✓</span><span data-i18n="pricing.enterprise.feature4">Custom contract</span></li>
+            </ul>
+            <button class="btn btn-line pricing-action" type="button" data-i18n="pricing.enterprise.action">Contact sales</button>
+          </article>
+        </div>
+        <p class="pricing-note t-label muted" data-i18n="pricing.note">Prices are in USD. Marketplace items are purchased separately, and many are free.</p>
       </div>
     </section>
 

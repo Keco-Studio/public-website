@@ -14,6 +14,13 @@ test("normalizes supported languages and defaults unknown values to English", ()
   assert.equal(core.t("fr", "hero.headline"), "Make your game, one slice at a time.");
 });
 
+test("provides localized pricing navigation and plan actions", () => {
+  assert.equal(core.t("en", "nav.pricing"), "Pricing");
+  assert.equal(core.t("zh-CN", "nav.pricing"), "价格");
+  assert.equal(core.t("en", "pricing.pro.action"), "Choose Pro");
+  assert.equal(core.t("zh-CN", "pricing.pro.action"), "选择 Pro");
+});
+
 test("maps only published release assets to supported downloads", () => {
   assert.equal(core.RELEASE.version, "v0.1.7");
   assert.equal(core.RELEASE.publishedAt, "2026-09-29");

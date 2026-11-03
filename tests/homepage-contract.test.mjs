@@ -11,9 +11,9 @@ test("homepage exposes the approved product journey", () => {
   }
   assert.match(html, /Make your game, one slice at a time\./);
   assert.match(html, /data-language-toggle/);
-  assert.match(html, /styles\.css\?v=prd-4/);
-  assert.match(html, /site-core\.js\?v=prd-4/);
-  assert.match(html, /site\.js\?v=prd-4/);
+  assert.match(html, /styles\.css\?v=prd-7/);
+  assert.match(html, /site-core\.js\?v=prd-7/);
+  assert.match(html, /site\.js\?v=prd-7/);
   assert.match(html, /assets\/screenshots\/englishlibraries\.png/);
   assert.match(html, /data-i18n-src-zh="assets\/screenshots\/chineselibraries\.png"/);
   assert.doesNotMatch(html, /assets\/screenshots\/屏幕截图 2026-10-30 104821\.png/);
@@ -72,6 +72,26 @@ test("homepage presents a detected-device download before compact alternatives",
   assert.equal((html.match(/data-recommended-badge(?:\s|>)/g) || []).length, 3);
   assert.doesNotMatch(html, /href=["']#downloads["']/);
   assert.doesNotMatch(html, /<section[^>]*class=["'][^"']*\bdownloads\b/);
+});
+
+test("homepage keeps pricing in-page with desktop and mobile navigation", () => {
+  assert.match(html, /<section[^>]*class=["'][^"']*\bpricing-section\b[^"']*["'][^>]*>/);
+  assert.equal((html.match(/href=["']#pricing["']/g) || []).length, 2);
+  assert.equal((html.match(/data-pricing-plan=/g) || []).length, 4);
+  assert.equal((html.match(/data-pricing-plan=["']pro["'][^>]*data-popular(?:\s|>)/g) || []).length, 1);
+  assert.doesNotMatch(html, /href=["']pricing\.html["']/);
+});
+
+test("pricing navigation targets the heading instead of the padded section", () => {
+  assert.match(html, /<div[^>]*class=["'][^"']*\bpricing-heading\b[^"']*["'][^>]*id=["']pricing["']/);
+  assert.doesNotMatch(html, /<section[^>]*id=["']pricing["']/);
+});
+
+test("pricing anchor uses only the global sticky-header offset", () => {
+  const pricingRule = css.match(/\.pricing-section\s*\{([^}]*)\}/s)?.[1] ?? "";
+
+  assert.match(css, /html\s*\{[^}]*scroll-padding-top:\s*150px;/s);
+  assert.doesNotMatch(pricingRule, /scroll-margin-top:/);
 });
 
 test("homepage keeps eight FAQ items collapsed by default", () => {
