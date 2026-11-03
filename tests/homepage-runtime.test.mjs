@@ -155,7 +155,12 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
     return option;
   });
   const meta = new FakeNode();
-  const proofImage = new FakeNode({ "data-i18n-alt": "hero.proofAlt" });
+  const proofImage = new FakeNode({
+    "data-i18n-alt": "hero.proofAlt",
+    "data-i18n-src": "",
+    "data-i18n-src-en": "assets/screenshots/englishlibraries.png",
+    "data-i18n-src-zh": "assets/screenshots/chineselibraries.png"
+  });
   const featureRoot = new FakeNode();
   const featurePanel = new FakeNode();
   const featureTitle = new FakeNode();
@@ -225,6 +230,7 @@ function bootHomepage({ storedLanguage = null, platform = "Other", userAgent = "
       if (selector === "[data-i18n-aria-label]") return [languageButton];
       if (selector === "[data-language-toggle]") return [languageButton];
       if (selector === "[data-i18n-alt]") return [proofImage];
+      if (selector === "[data-i18n-src]") return [proofImage];
       if (selector === "[data-feature-showcase]") return carousel ? [featureRoot] : [];
       if (selector === "[data-feature-link]") return featureLinks;
       if (selector === "[data-download-dialog-open]") return downloadDialogOpeners;
@@ -320,6 +326,19 @@ test("language control restores Chinese and translates text and labels", () => {
   assert.equal(runtime.nodes.headline.textContent, "一次完成一个切片，做出你的游戏。");
   assert.equal(runtime.nodes.languageButton.textContent, "EN");
   assert.equal(runtime.nodes.languageButton.getAttribute("aria-label"), "Switch to English");
+  assert.equal(runtime.nodes.proofImage.getAttribute("src"), "assets/screenshots/chineselibraries.png");
+});
+
+test("language control switches localized workspace and Map screenshots together", () => {
+  const runtime = bootHomepage({ carousel: true, initialHash: "#map" });
+
+  assert.equal(runtime.nodes.proofImage.getAttribute("src"), "assets/screenshots/englishlibraries.png");
+  assert.equal(runtime.nodes.carouselImage.src, "assets/screenshots/englishMap.jpg");
+
+  runtime.nodes.languageButton.click();
+
+  assert.equal(runtime.nodes.proofImage.getAttribute("src"), "assets/screenshots/chineselibraries.png");
+  assert.equal(runtime.nodes.carouselImage.src, "assets/screenshots/chineseMap.png");
 });
 
 test("language control persists an explicit switch", () => {
@@ -407,63 +426,22 @@ test("unsupported devices still receive complete Chinese image text", () => {
   assert.equal(runtime.nodes.proofImage.getAttribute("alt"), "显示游戏设计文档的 Keco Studio 工作台");
 });
 
-test("carousel advances after three seconds and wraps", () => {
+test("single real feature screenshots hide inactive carousel controls", () => {
   const runtime = bootHomepage({ carousel: true });
-
-  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
-  assert.equal(runtime.intervalCount, 1);
-  runtime.runInterval();
-  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
-  runtime.runInterval();
-  runtime.runInterval();
-  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
-});
-
-test("manual carousel navigation resets the interval", () => {
-  const runtime = bootHomepage({ carousel: true });
-
-  runtime.nodes.nextButton.click();
-
-  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
-  assert.equal(runtime.clearedIntervals, 1);
-  assert.equal(runtime.intervalCount, 2);
-});
-
-test("carousel pauses on hover and resumes after pointer exit", () => {
-  const runtime = bootHomepage({ carousel: true });
-
-  runtime.nodes.carousel.trigger("pointerenter");
-  assert.equal(runtime.clearedIntervals, 1);
-  runtime.nodes.carousel.trigger("pointerleave");
-  assert.equal(runtime.intervalCount, 2);
-});
-
-test("carousel stays paused while keyboard focus remains in the feature showcase", () => {
-  const runtime = bootHomepage({ carousel: true });
-
-  runtime.nodes.featureRoot.trigger("focusin");
-  assert.equal(runtime.clearedIntervals, 1);
-
-  runtime.nodes.nextButton.click();
-  assert.equal(runtime.intervalCount, 1);
-
-  runtime.nodes.featureRoot.trigger("focusout", { relatedTarget: null });
-  assert.equal(runtime.intervalCount, 2);
-});
-
-test("reduced motion disables carousel autoplay", () => {
-  const runtime = bootHomepage({ carousel: true, reducedMotion: true });
 
   assert.equal(runtime.nodes.carousel.dataset.activeSlide, "0");
   assert.equal(runtime.intervalCount, 0);
+  assert.equal(runtime.nodes.previousButton.hidden, true);
+  assert.equal(runtime.nodes.nextButton.hidden, true);
+  assert.equal(runtime.nodes.dots.hidden, true);
 });
 
-test("carousel remains interactive without visible slide status copy", () => {
-  const runtime = bootHomepage({ carousel: true });
+test("Map preview follows the current interface language", () => {
+  const english = bootHomepage({ carousel: true, initialHash: "#map" });
+  const chinese = bootHomepage({ carousel: true, storedLanguage: "zh-CN", initialHash: "#map" });
 
-  runtime.nodes.nextButton.click();
-
-  assert.equal(runtime.nodes.carousel.dataset.activeSlide, "1");
+  assert.equal(english.nodes.carouselImage.src, "assets/screenshots/englishMap.jpg");
+  assert.equal(chinese.nodes.carouselImage.src, "assets/screenshots/chineseMap.png");
 });
 
 test("feature selector replaces the shared panel content and resets its carousel", () => {

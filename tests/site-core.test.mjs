@@ -78,3 +78,21 @@ test("carousel helpers wrap in both directions and respect reduced motion", () =
   assert.equal(core.shouldAutoplay(false), true);
   assert.equal(core.shouldAutoplay(true), false);
 });
+
+test("feature carousels use their real product screenshots instead of one shared placeholder", () => {
+  const expectedScreenshots = {
+    "game-design-system": "assets/screenshots/game design system.png",
+    "ai-agent": "assets/screenshots/englishAgent.png",
+    simulator: "assets/screenshots/simulator.png",
+    script: "assets/screenshots/englishscript.png",
+    map: "assets/screenshots/englishMap.jpg"
+  };
+
+  for (const [feature, expectedSrc] of Object.entries(expectedScreenshots)) {
+    assert.deepEqual(
+      core.FEATURES[feature].slides.map((slide) => slide.src),
+      [expectedSrc]
+    );
+  }
+  assert.equal(core.FEATURES.map.slides[0].srcZh, "assets/screenshots/chineseMap.png");
+});

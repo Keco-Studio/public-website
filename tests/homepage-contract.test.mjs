@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
 
 test("homepage exposes the approved product journey", () => {
   for (const id of ["game-design-system", "ai-agent", "simulator", "script", "map", "download-dialog-title", "requirements", "faq"]) {
@@ -10,10 +11,12 @@ test("homepage exposes the approved product journey", () => {
   }
   assert.match(html, /Make your game, one slice at a time\./);
   assert.match(html, /data-language-toggle/);
-  assert.match(html, /styles\.css\?v=prd-2/);
-  assert.match(html, /site-core\.js\?v=prd-2/);
-  assert.match(html, /site\.js\?v=prd-2/);
-  assert.match(html, /assets\/screenshots\/屏幕截图 2026-10-30 104821\.png/);
+  assert.match(html, /styles\.css\?v=prd-4/);
+  assert.match(html, /site-core\.js\?v=prd-4/);
+  assert.match(html, /site\.js\?v=prd-4/);
+  assert.match(html, /assets\/screenshots\/englishlibraries\.png/);
+  assert.match(html, /data-i18n-src-zh="assets\/screenshots\/chineselibraries\.png"/);
+  assert.doesNotMatch(html, /assets\/screenshots\/屏幕截图 2026-10-30 104821\.png/);
 });
 
 test("homepage omits the auxiliary topbar while keeping language in the main navigation", () => {
@@ -36,6 +39,18 @@ test("homepage uses one accessible feature showcase instead of five repeated sec
   assert.equal((html.match(/data-feature-panel(?:\s|>)/g) || []).length, 1);
   assert.equal((html.match(/data-feature-carousel(?:\s|>)/g) || []).length, 1);
   assert.doesNotMatch(html, /class=["'][^"']*\bproduct-feature\b/);
+});
+
+test("feature screenshots remain fully visible inside the shared preview", () => {
+  assert.match(css, /\.carousel-stage\s*>\s*img\s*\{[^}]*object-fit:\s*contain;/s);
+  assert.match(css, /\.carousel-arrow\[hidden\][^{]*\.carousel-dots\[hidden\]\s*\{\s*display:\s*none;/s);
+});
+
+test("homepage workspace screenshot uses its intrinsic height without letterboxing", () => {
+  const productImageRule = css.match(/\.product-frame img\s*\{([^}]*)\}/s)?.[1] ?? "";
+
+  assert.match(productImageRule, /height:\s*auto;/);
+  assert.doesNotMatch(productImageRule, /aspect-ratio:/);
 });
 
 test("homepage omits redundant release and carousel status copy", () => {
