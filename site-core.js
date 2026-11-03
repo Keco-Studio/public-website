@@ -5,7 +5,6 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
 
-  var SCREENSHOT = "assets/screenshots/屏幕截图 2026-10-30 104821.png";
   var RELEASE_BASE = "https://github.com/Keco-Studio/keco-desktop/releases/download/v0.1.7/";
 
   var RELEASE = Object.freeze({
@@ -42,41 +41,40 @@
     })
   });
 
-  function slides(prefix, positions) {
-    return positions.map(function (position, index) {
-      return Object.freeze({
-        src: SCREENSHOT,
-        objectPosition: position,
-        captionKey: "feature." + prefix + ".slide" + (index + 1)
-      });
-    });
+  function screenshot(prefix, src, srcZh) {
+    return Object.freeze([Object.freeze({
+      src: src,
+      srcZh: srcZh || null,
+      objectPosition: "center center",
+      captionKey: "feature." + prefix + ".slide1"
+    })]);
   }
 
   var FEATURES = Object.freeze({
     "game-design-system": Object.freeze({
       titleKey: "feature.gds.title",
       bodyKey: "feature.gds.body",
-      slides: Object.freeze(slides("gds", ["left center", "center center", "right center"]))
+      slides: screenshot("gds", "assets/screenshots/game design system.png")
     }),
     "ai-agent": Object.freeze({
       titleKey: "feature.agent.title",
       bodyKey: "feature.agent.body",
-      slides: Object.freeze(slides("agent", ["left bottom", "center bottom", "right bottom"]))
+      slides: screenshot("agent", "assets/screenshots/englishAgent.png")
     }),
     simulator: Object.freeze({
       titleKey: "feature.simulator.title",
       bodyKey: "feature.simulator.body",
-      slides: Object.freeze(slides("simulator", ["left center", "center center", "right center"]))
+      slides: screenshot("simulator", "assets/screenshots/simulator.png")
     }),
     script: Object.freeze({
       titleKey: "feature.script.title",
       bodyKey: "feature.script.body",
-      slides: Object.freeze(slides("script", ["left top", "center top", "right top"]))
+      slides: screenshot("script", "assets/screenshots/englishscript.png")
     }),
     map: Object.freeze({
       titleKey: "feature.map.title",
       bodyKey: "feature.map.body",
-      slides: Object.freeze(slides("map", ["left center", "center center", "right center"]))
+      slides: screenshot("map", "assets/screenshots/englishMap.jpg", "assets/screenshots/chineseMap.png")
     })
   });
 

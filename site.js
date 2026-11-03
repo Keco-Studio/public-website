@@ -160,6 +160,10 @@
       var key = node.getAttribute('data-i18n-alt');
       if (key) node.setAttribute('alt', translate(key));
     });
+    document.querySelectorAll('[data-i18n-src]').forEach(function (node) {
+      var localizedSource = node.getAttribute(currentLanguage === 'zh-CN' ? 'data-i18n-src-zh' : 'data-i18n-src-en');
+      if (localizedSource) node.setAttribute('src', localizedSource);
+    });
     carouselRefreshers.forEach(function (refresh) { refresh(); });
     if (themeButton) updateThemeButton();
     if (currentDetection) renderPrimaryDownload(currentDetection);
@@ -337,7 +341,7 @@
         carousel.dataset.activeSlide = String(activeIndex);
         title.textContent = translate(feature.titleKey);
         body.textContent = translate(feature.bodyKey);
-        image.src = slide.src;
+        image.src = currentLanguage === 'zh-CN' && slide.srcZh ? slide.srcZh : slide.src;
         image.alt = translate(slide.captionKey);
         image.style.objectPosition = slide.objectPosition;
         image.hidden = false;
@@ -363,7 +367,7 @@
       }
 
       function start() {
-        if (!core.shouldAutoplay(reducedMotion) || timer !== null || focusWithin || pointerWithin) return;
+        if (getFeature().slides.length < 2 || !core.shouldAutoplay(reducedMotion) || timer !== null || focusWithin || pointerWithin) return;
         timer = window.setInterval(function () {
           activeIndex = core.nextSlide(activeIndex, getFeature().slides.length, 1);
           render();
@@ -380,6 +384,10 @@
       function buildDots() {
         dotButtons = [];
         dots.replaceChildren();
+        var interactive = getFeature().slides.length > 1;
+        previous.hidden = !interactive;
+        next.hidden = !interactive;
+        dots.hidden = !interactive;
         getFeature().slides.forEach(function (_, index) {
           var dot = document.createElement('button');
           dot.type = 'button';
